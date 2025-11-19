@@ -28,8 +28,8 @@ export type TypeH2Header = {
 };
 
 export type TypeSlidsInfo = {
-	img?: string,
-	imgAlt?: string,
+	img: string,
+	imgAlt: string,
 	userName: string,
 	social?: string,
 	rating?: number | null | undefined,

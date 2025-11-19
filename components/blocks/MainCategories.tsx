@@ -29,7 +29,7 @@ function MainCategories() {
         <div
           className="flex flex-wrap justify-between items-start">
           {infoCards.map((card, index) => {
-            let styleClass: string = (index % 2 === 0) ? "items-start" : "items-end mt-24";
+            let styleClass: string = (index % 2 === 0) ? "" : "mt-24";
             let plusClass: string = `sm:w-1/3 p-3.5 w-full ${styleClass}`;
             return (
               <InfoCardsCate plusClass={plusClass} key={index}

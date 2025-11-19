@@ -26,3 +26,12 @@ export type TypeH2Header = {
   header: string;
   title: string;
 };
+
+export type TypeSlidsInfo = {
+	img?: string,
+	imgAlt?: string,
+	userName: string,
+	social?: string,
+	rating?: number | null | undefined,
+	message: string,
+}[]

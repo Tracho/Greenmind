@@ -10,115 +10,24 @@ import MainClientMessageSlider from "@/components/blocks/MainClientMessageSlider
 import SVGArrowRight from "@/components/icons/SVGArrowRight";
 import NavBar from "@/components/layout/navbar";
 import Button from "@/components/ui/Button";
+import {query} from "@/components/lib/gql/home"
 
 // ?populate=*
 
-const HOST_STRIPE: string = "http://localhost:1337";
-const HOST = "http://localhost:1337/graphql";
+const HOST_STRIPE = process.env.NEXT_PUBLIC_HOST_STRAPI as string;
+const GQL = process.env.NEXT_PUBLIC_HOST_GQL as string;
 
 
 
-export default async function Home() {
-  const query = ` 
-  query HomePage {
-  homePage {
-    HomePage {
-      ... on ComponentHomepageHeaderHeader {
-      __typename
-        id
-        header
-        subtitle_l_number
-        subtitle_l_text
-        subtitle_r_number
-        subtitle_r_text
-        input_placeholder
-        image {
-          width
-          url
-          height
-          alternativeText
-        }
-      }
-      ... on ComponentAboutUsAboutUs {
-      __typename
-        id
-        Header
-        subtitle
-        cycle {
-          header
-          subtitle
-        }
-      }
-      ... on ComponentBspBestSellingPlants {
-      __typename
-        id
-        header
-        subtitle
-        text_btn
-        cycle {
-          header
-          price
-          img {
-            alternativeText
-            height
-            width
-            url
-          }
-          number_price
-          currency
-        }
-      }
-      ... on ComponentMainCategoriesMainCategories {
-      __typename
-        id
-        Header
-        subtitle
-        cycle {
-          header
-          subtitle
-          text_btn
-          img {
-            width
-            url
-            height
-            alternativeText
-          }
-        }
-      }
-      ... on ComponentMainCommentsMainComments {
-      __typename
-        id
-        header
-        cycle {
-          img {
-            width
-            url
-            alternativeText
-            height
-          }
-          social
-          rating
-          name
-          message
-        }
-      }
-    }
-  }
-} 
-  `;
+export default async function Home() { 
 
-  const res = await fetch(HOST, {
+  const res = await fetch(GQL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ query }),
-  });
-  // const { json }: any = await res.json();
-
-
-  // const data = await res.json();
-
+  }); 
   const { data }: { data: TypeHomePageResponse } = await res.json();
   console.log(data)
   // let blocks: TypeBlocks[] = data.HomePage.HomePage;

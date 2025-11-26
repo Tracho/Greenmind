@@ -10,6 +10,7 @@
     "server": "nodemon --watch server server/index.ts"
   },
   "dependencies": {
+    "@strapi/plugin-graphql": "^5.31.2",
     "motion": "^12.23.24",
     "next": "16.0.1",
     "react": "19.2.0",

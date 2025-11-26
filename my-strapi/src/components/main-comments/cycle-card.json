@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_main_comments_cycle_cards",
+  "info": {
+    "displayName": "cycle_card",
+    "icon": "refresh"
+  },
+  "options": {},
+  "attributes": {
+    "img": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "social": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

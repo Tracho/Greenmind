@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_bsp_cycles",
+  "info": {
+    "displayName": "cycle",
+    "icon": "refresh"
+  },
+  "options": {},
+  "attributes": {
+    "img": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "header": {
+      "type": "string"
+    },
+    "price": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "number_price": {
+      "type": "decimal"
+    }
+  },
+  "config": {}
+}

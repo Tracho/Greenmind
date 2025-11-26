@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "home_pages",
+  "info": {
+    "singularName": "home-page",
+    "pluralName": "home-pages",
+    "displayName": "HomePage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "HomePage": {
+      "type": "dynamiczone",
+      "components": [
+        "homepage-header.header",
+        "about-us.about-us",
+        "bsp.best-selling-plants",
+        "main-categories.main-categories",
+        "main-comments.main-comments"
+      ]
+    }
+  }
+}

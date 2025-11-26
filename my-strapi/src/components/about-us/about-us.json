@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_about_us_aboutuses",
+  "info": {
+    "displayName": "AboutUs",
+    "icon": "question"
+  },
+  "options": {},
+  "attributes": {
+    "Header": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "cycle": {
+      "type": "component",
+      "component": "about-us.cycle",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_about_us_cycles",
+  "info": {
+    "displayName": "Cycle",
+    "icon": "refresh"
+  },
+  "options": {},
+  "attributes": {
+    "header": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

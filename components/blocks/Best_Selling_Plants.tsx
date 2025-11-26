@@ -8,9 +8,11 @@ import picture1 from "@/public/images/item1.png";
 import picture2 from "@/public/images/item2.png";
 import picture3 from "@/public/images/item3.png";
 import { useState } from "react";
-import { TypeCard } from "@/components/types/global";
+import { TypeCard, TypeBestSellingPlants } from "@/components/types/global";
 
-function Best_Selling_Plants() {
+function Best_Selling_Plants({ HOST_STRIPE, data }: { HOST_STRIPE: string, data: TypeBestSellingPlants }) {
+  let [MyData, SetMyData] = useState(data);
+  console.dir(data)
   const [cards, SetCatds] = useState<TypeCard[]>([
     { imgUrl: picture1.src, imgAlt: "Plant 1", price: 25, currency: "$", header: "Aloe Vera" },
     { imgUrl: picture2.src, imgAlt: "Plant 2", price: 30, currency: "$", header: "Snake Plant" },
@@ -22,8 +24,8 @@ function Best_Selling_Plants() {
       <div className="flex flex-wrap justify-between w-full align-top">
         <div className="lg:w-1/4 md:w-1/2 w-full my-5 flex lg:items-start justify-center items-center">
           <div className="lg:max-w-[256] max-w-[300]">
-            <h2 className="text-3xl font-bold mb-3">Best Selling Plants</h2>
-            <p className="color_blackgray text-lg mb-6">Easiest way to healthy life by buying your favorite plants </p>
+            <h2 className="text-3xl font-bold mb-3">{MyData.header}</h2>
+            <p className="color_blackgray text-lg mb-6">{MyData.subtitle}</p>
             <Button title="See more" >
               <SVGArrowRight />
             </Button>
@@ -31,10 +33,19 @@ function Best_Selling_Plants() {
         </div>
 
 
-        {cards.map((card, index) => {
-          return (
-            <BSP_card key={index} imgUrl={card.imgUrl} imgAlt={card.imgAlt}
-              price={card.price} currency={card.currency} header={card.header}
+        {MyData.cycle.map((card, index) => {
+          console.log(card.img)
+          if (card.img) return (
+            <BSP_card key={index} 
+            HOST_STRIPE={HOST_STRIPE}
+            imgUrl={card.img.url} 
+            alternativeText={card.img.alternativeText}
+            price={card.price}
+            currency={card.currency}
+            header={card.header}
+            number_price={card.number_price}
+            width={card.img.width}
+            height={card.img.height}
               plusClass="lg:w-1/4 md:w-1/2 w-full my-5" />
           );
         })}

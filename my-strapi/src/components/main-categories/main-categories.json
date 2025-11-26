@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_main_categories_main_categories",
+  "info": {
+    "displayName": "Main Categories",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "Header": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "cycle": {
+      "type": "component",
+      "component": "main-categories.cycle",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

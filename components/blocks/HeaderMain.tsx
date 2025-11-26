@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
+import { TypeHeaderBlock } from "@/components/types/global";
 import Image from "next/image";
 import { useState } from "react";
 import SVGSearch from "../icons/SVGSearch";
@@ -11,8 +12,11 @@ import SVGArrowTopHeader from "../icons/SVGArrowTopHeader";
 import SVGArrowBottomHeader from "../icons/SVGArrowBottomHeader";
 
 
-function HeaderMain() {
+function HeaderMain({ data, HOST_STRIPE }: { data: TypeHeaderBlock, HOST_STRIPE: string }) {
+  let [myData, setMyDsta] = useState<TypeHeaderBlock>(data);
   let [inp, setInp] = useState("");
+
+  // console.log(myData)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,15 +32,15 @@ function HeaderMain() {
     <div className="mxw_1440 px96_15">
       <div className="bg_aquamarine p-12 pb-0 rounded-3xl flex flex-wrap items-stretch justify-between relative  lg:overflow-hidden">
         <div className="lg:max-w-md pb-32 z-50">
-          <h1 className="text-6xl font-extrabold">Buy your dream plants</h1>
+          <h1 className="text-6xl font-extrabold">{myData.header}</h1>
           <div className="flex mt-6">
             <div className="flex flex-col font-medium pe-12 border-r-2 border-e-neutral-600">
-              <span className="text-4xl">50+</span>
-              <span className="text-lg">Plant Species</span>
+              <span className="text-4xl">{myData.subtitle_l_number}</span>
+              <span className="text-lg">{myData.subtitle_l_text}</span>
             </div>
             <div className="flex flex-col font-medium ps-12">
-              <span className="text-4xl">100+</span>
-              <span className="text-lg">Customers</span>
+              <span className="text-4xl">{myData.subtitle_r_number}</span>
+              <span className="text-lg">{myData.subtitle_r_text}</span>
             </div>
           </div>
 
@@ -44,8 +48,8 @@ function HeaderMain() {
             <form onSubmit={handleSubmit} className="relative">
               <input className="bg-white relative rounded-xl py-5 ps-5 pe-12  w-full"
                 value={inp} onChange={(e) => setInp(e.target.value)}
-                id="search" name="search" alt="What are you looking for?"
-                placeholder="What are you looking for?" type="text" />
+                id="search" name="search" alt={myData.input_placeholder}
+                placeholder={myData.input_placeholder} type="text" />
               <Button classStyle="absolute end-2 top-2 bg_aquamarine" newP="p-3.5">
                 <SVGSearch />
               </Button>
@@ -66,8 +70,9 @@ function HeaderMain() {
           <span className="absolute transform bottom-0 end-0 -translate-y-0 -translate-x-2 z-10 pointer-events-none">
             <Rectangle3 />
           </span>
+          <div className="flex justify-end w-full overflow-hidden">
           <motion.span
-            className="flex justify-end w-full relative z-20"
+            className="relative z-20"
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -77,15 +82,26 @@ function HeaderMain() {
 
             }}
           >
-            <Image
+            {/* <Image
               src={HeaderImg}
               alt="Main header image"
               width={411}
               height={513}
               priority
               className="relative bottom-0 end-0 z-10 -translate-y-0 -translate-x-2"
+            /> */}
+            {myData.image && 
+            <Image
+              src={HOST_STRIPE + myData.image.url}
+              alt={myData.image?.alternativeText || "image"}
+              width={myData.image?.width}
+              height={myData.image?.height}
+              priority
+              className="relative bottom-0 end-0 z-10 -translate-y-0 -translate-x-2"
             />
-          </motion.span>
+            }
+
+          </motion.span></div>
         </div>
 
       </div>

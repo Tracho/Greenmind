@@ -16,3 +16,4 @@ function SVGStar() {
 }
 
 export default SVGStar;
+  

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_main_comments_main_comments",
+  "info": {
+    "displayName": "Main comments",
+    "icon": "message"
+  },
+  "options": {},
+  "attributes": {
+    "header": {
+      "type": "string"
+    },
+    "cycle": {
+      "type": "component",
+      "component": "main-comments.cycle-card",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

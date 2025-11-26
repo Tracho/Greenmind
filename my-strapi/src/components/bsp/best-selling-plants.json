@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_bsp_best_selling_plants",
+  "info": {
+    "displayName": "Best Selling Plants",
+    "icon": "shoppingCart"
+  },
+  "options": {},
+  "attributes": {
+    "header": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "text_btn": {
+      "type": "string"
+    },
+    "cycle": {
+      "type": "component",
+      "component": "bsp.cycle",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

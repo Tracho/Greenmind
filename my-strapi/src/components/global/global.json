@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_global_globals",
+  "info": {
+    "displayName": "Global",
+    "icon": "cloud"
+  },
+  "options": {},
+  "attributes": {
+    "currency": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

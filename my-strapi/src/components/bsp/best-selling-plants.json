@@ -19,6 +19,9 @@
       "type": "component",
       "component": "bsp.cycle",
       "repeatable": true
+    },
+    "UseCycle": {
+      "type": "boolean"
     }
   },
   "config": {}

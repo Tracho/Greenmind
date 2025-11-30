@@ -31,6 +31,7 @@ export type TypeImageData = {
   // provider_metadata?: any | null;
   // size?: number;
   url?: string;
+  link?: string;
 
   // formats?: {
   //   thumbnail?: TypeImageFormat;
@@ -59,7 +60,7 @@ export type TypeBestSellingPlantsItem = {
   header?: string;
   price?: string;
   currency?: string;
-  number_price?:number;
+  number_price?:number | null;
   image?: TypeImageData; // картинка может быть, поэтому "?"
   img?: TypeImageData; // картинка может быть, поэтому "?"
 };
@@ -71,6 +72,7 @@ export type TypeBestSellingPlants = {
   subtitle: string;
   text_btn: string;
   cycle: TypeBestSellingPlantsItem[]; // массив товаров
+  UseCycle: boolean | null;
 };
 
 
@@ -111,16 +113,23 @@ export type TypeHomePageResponse = {
   homePage: {
     HomePage:TypeBlocks[];
   }
+  products?:TypeProducts[];
+  globals?:Typeglobals[];
+};
+
+export type Typeglobals = {
+  currency:string;
 };
 
 
 
-export type TypeCard = {
-  imgUrl: string;
-  imgAlt?: string;
-  price: number;
-  currency: string;
-  header: string;
+export type TypeProducts = {
+  images: TypeImageData[];
+  likes?: number | null;
+  sold?: number | null;
+  slug:string;
+  price: number | null;
+  title: string;
 };
 export type TypeCardCate = {
   imgUrl: string;

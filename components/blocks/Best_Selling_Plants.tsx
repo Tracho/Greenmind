@@ -8,16 +8,12 @@ import picture1 from "@/public/images/item1.png";
 import picture2 from "@/public/images/item2.png";
 import picture3 from "@/public/images/item3.png";
 import { useState } from "react";
-import { TypeCard, TypeBestSellingPlants } from "@/components/types/global";
+import { TypeProducts, TypeBestSellingPlants, Typeglobals } from "@/components/types/global";
 
-function Best_Selling_Plants({ HOST_STRIPE, data }: { HOST_STRIPE: string, data: TypeBestSellingPlants }) {
+function Best_Selling_Plants({ HOST_STRIPE, data, products, globals }: 
+  { HOST_STRIPE: string, data: TypeBestSellingPlants, products: TypeProducts[], globals: Typeglobals | null }) {
   let [MyData, SetMyData] = useState(data);
-  console.dir(data)
-  const [cards, SetCatds] = useState<TypeCard[]>([
-    { imgUrl: picture1.src, imgAlt: "Plant 1", price: 25, currency: "$", header: "Aloe Vera" },
-    { imgUrl: picture2.src, imgAlt: "Plant 2", price: 30, currency: "$", header: "Snake Plant" },
-    { imgUrl: picture3.src, imgAlt: "Plant 3", price: 45, currency: "$", header: "Peace Lily" },
-  ]);
+  const [Myproducts, SetMyProducts] = useState<TypeProducts[]>(products);
 
   return (<>
     <div className="mxw_1440 px96_15 py-24">
@@ -33,8 +29,7 @@ function Best_Selling_Plants({ HOST_STRIPE, data }: { HOST_STRIPE: string, data:
         </div>
 
 
-        {MyData.cycle.map((card, index) => {
-          console.log(card.img)
+        {MyData.UseCycle === true && MyData.cycle.map((card, index) => {
           if (card.img) return (
             <BSP_card key={index} 
             HOST_STRIPE={HOST_STRIPE}
@@ -46,7 +41,22 @@ function Best_Selling_Plants({ HOST_STRIPE, data }: { HOST_STRIPE: string, data:
             number_price={card.number_price}
             width={card.img.width}
             height={card.img.height}
-              plusClass="lg:w-1/4 md:w-1/2 w-full my-5" />
+              plusClass="lg:w-1/4 md:w-1/2 w-full my-5"/>
+          );
+        })}
+        {MyData.UseCycle === null || MyData.UseCycle === false && Myproducts.map((card, index) => {
+          if (card.images && card.images) return (
+            <BSP_card key={index} 
+            link={`/products/${card.slug}`}
+            HOST_STRIPE={HOST_STRIPE}
+            imgUrl={card.images[0].url} 
+            alternativeText={card.images[0].alternativeText}
+            number_price={card.price}
+            currency={globals?.currency}
+            header={card.title}
+            width={card.images[0].width}
+            height={card.images[0].height}
+              plusClass="lg:w-1/4 md:w-1/2 w-full my-5 gap-6" />
           );
         })}
       </div>

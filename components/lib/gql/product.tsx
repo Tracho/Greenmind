@@ -6,6 +6,8 @@ query ExampleQuery($filters: ProductFiltersInput) {
     slug
     description
     price
+    sold
+    likes
     images_connection {
       nodes {
         width

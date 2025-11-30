@@ -41,6 +41,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::product.product"
+    },
+    "likes": {
+      "type": "decimal"
+    },
+    "sold": {
+      "type": "biginteger"
     }
   }
 }

@@ -36,6 +36,7 @@ export interface BspBestSellingPlants extends Struct.ComponentSchema {
     header: Schema.Attribute.String;
     subtitle: Schema.Attribute.String;
     text_btn: Schema.Attribute.String;
+    UseCycle: Schema.Attribute.Boolean;
   };
 }
 
@@ -51,6 +52,17 @@ export interface BspCycle extends Struct.ComponentSchema {
     img: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     number_price: Schema.Attribute.Decimal;
     price: Schema.Attribute.String;
+  };
+}
+
+export interface GlobalGlobal extends Struct.ComponentSchema {
+  collectionName: 'components_global_globals';
+  info: {
+    displayName: 'Global';
+    icon: 'cloud';
+  };
+  attributes: {
+    currency: Schema.Attribute.String;
   };
 }
 
@@ -147,6 +159,7 @@ declare module '@strapi/strapi' {
       'about-us.cycle': AboutUsCycle;
       'bsp.best-selling-plants': BspBestSellingPlants;
       'bsp.cycle': BspCycle;
+      'global.global': GlobalGlobal;
       'homepage-header.header': HomepageHeaderHeader;
       'homepage-header.testcycle': HomepageHeaderTestcycle;
       'main-categories.cycle': MainCategoriesCycle;

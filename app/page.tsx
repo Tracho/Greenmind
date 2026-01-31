@@ -1,5 +1,5 @@
 
-
+"use server";
 import { TypeHomePageResponse, TypeBlocks, TypeProducts, Typeglobals } from "@/components/types/global";
 
 import About_us from "@/components/blocks/About_us";
@@ -35,7 +35,7 @@ export default async function Home() {
           limit: 1
         },
         productsPagination2: {
-          limit: 1
+          limit: 3
         },
         sort: ["sold:desc"],
       }
@@ -46,12 +46,9 @@ export default async function Home() {
   // let blocks: TypeBlocks[] = data.HomePage.HomePage;
   let blocks: TypeBlocks[] = data.homePage.HomePage;
   let products: TypeProducts[] = data.products || [];
-  let globals: Typeglobals | null =  data.globals?.[0] || null;
+  let globals: Typeglobals | null = data.globals?.[0] || null;
   // let global: Typeglobals = globals[0];
-  console.log(blocks)
-  console.log(products)
-  console.log(globals)
-
+   
 
   return (
     <>
@@ -64,21 +61,27 @@ export default async function Home() {
         if (b.__typename === "ComponentBspBestSellingPlants") {
           return (<Best_Selling_Plants key={i} HOST_STRIPE={HOST_STRIPE} globals={globals} data={b} products={products} />)
         }
-
+        if (b.__typename === "ComponentAboutUsAboutUs") {
+          return (<About_us key={i} data={b} />)
+        }
+        if (b.__typename === "ComponentMainCategoriesMainCategories") {
+          return <MainCategories HOST_STRIPE={HOST_STRIPE} key={i} data={b} />
+        }
+        if (b.__typename === "ComponentMainCommentsMainComments") {
+          return <MainClientMessageSlider key={i} data={b} HOST_STRIPE={HOST_STRIPE} />
+        }
         return null;
       }
       )}
 
-      <About_us />
-      <MainCategories />
-      <MainClientMessageSlider />
+
 
       {/*       
       <div>
-        <Button title="See more" >
+        <Button subtitle="See more" >
           <SVGArrowRight />
         </Button>
-        <Button title="Explore" classStyle="bg-white" >
+        <Button subtitle="Explore" classStyle="bg-white" >
           <SVGArrowRight />
         </Button>
       </div>

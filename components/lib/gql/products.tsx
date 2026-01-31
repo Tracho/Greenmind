@@ -1,0 +1,82 @@
+export const query = `
+query Products(
+  $filters: ProductFiltersInput
+  $pagination: PaginationArg
+  $imagesPagination2: PaginationArg
+  $sort: [String]
+) {
+  products_connection(filters: $filters, pagination: $pagination, sort: $sort) {
+    nodes {
+      title
+      slug
+      price
+      likes
+      sold
+      inStock
+      publishedAt
+      imgjson
+      images(pagination: $imagesPagination2) {
+        url
+        width
+        height
+        alternativeText
+      }
+    }
+    pageInfo {
+      pageSize
+      pageCount
+      total
+      page
+    }
+  }
+
+  maxPriceProduct: products_connection(
+    pagination: { limit: 1 }
+    sort: ["price:desc"]
+  ) {
+    nodes {
+      price
+    }
+  }
+
+  globals {
+    currency
+  }
+
+  brands {
+    name
+  }
+
+  colors {
+    name
+  }
+}
+` 
+// export const query = `
+// query Images($pagination: PaginationArg, $productsPagination2: PaginationArg, $sort: [String], $filters: ProductFiltersInput) {
+//   products(pagination: $productsPagination2, sort: $sort, filters: $filters) {
+//     images(pagination: $pagination) {
+//       width
+//       url
+//       height
+//       alternativeText
+//     }
+//     title
+//     sold
+//     slug
+//     price
+//     likes
+//     inStock
+//     publishedAt
+//   }
+//   globals {
+//     currency
+//   }
+//   brands {
+//     name
+//   }
+//   colors {
+//     name
+//   }
+// }
+// ` 

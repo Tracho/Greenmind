@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -25,7 +26,7 @@
 
 body {
   background: #fff;
-    font-family: var(--font-poppins);
+  font-family: var(--font-poppins);
 
 }
 
@@ -37,6 +38,7 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
 .mxw_fullhd {
   width: 100%;
   max-width: 1920px;
@@ -50,30 +52,74 @@ body {
 
 .bg_gradient_width_aqu {
   background: #FFF;
-  background:linear-gradient(#fff 0% 10%, #c1dcdc 10% 100%);
+  background: linear-gradient(#fff 0% 10%, #c1dcdc 10% 100%);
 }
 
 .bg_aquamarine {
   background-color: #C1DCDC;
 }
 
+.bg_aquamarine_hover {
+  background-color: #C1DCDC;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #97c8c8;
+    /* transition: all 0.2s ease; */
+  }
+
+  &[data-active="true"] {
+    background-color: #97c8c8;
+
+    &:hover {
+      background-color: #C1DCDC;
+    }
+  }
+}
+
 .px96_15 {
   padding-left: clamp(0.9375rem, -2.6786rem + 11.5714vw, 6rem);
   padding-right: clamp(0.9375rem, -2.6786rem + 11.5714vw, 6rem);
 }
+
 .ps96_15 {
   padding-left: clamp(0.9375rem, -2.6786rem + 11.5714vw, 6rem);
 }
+
 .pe96_15 {
   padding-right: clamp(0.9375rem, -2.6786rem + 11.5714vw, 6rem);
 }
 
 /* Скрыть scrollbar, но оставить прокрутку */
 .hide-scrollbar {
-  -ms-overflow-style: none; /* IE и Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE и Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+.fs60_42 {
+  font-size: clamp(2.625rem, 1.8214rem + 2.5714vw, 3.75rem);
+}
+
+.line-clamp {
+  &:hover {
+    p {
+      display: flex;
+    }
+  }
+
+  p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Количество строк (например, 3) */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    /* Скрыть лишний текст */
+  }
 }

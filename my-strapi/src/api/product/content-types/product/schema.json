@@ -24,6 +24,15 @@
     "price": {
       "type": "decimal"
     },
+    "oldPrice": {
+      "type": "decimal"
+    },
+    "discount": {
+      "type": "decimal"
+    },
+    "discountboolean": {
+      "type": "boolean"
+    },
     "images": {
       "type": "media",
       "multiple": true,
@@ -37,16 +46,44 @@
     "inStock": {
       "type": "boolean"
     },
-    "categories": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::product.product"
-    },
     "likes": {
       "type": "decimal"
     },
     "sold": {
       "type": "biginteger"
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brand.brand",
+      "inversedBy": "products"
+    },
+    "colors": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::color.color",
+      "mappedBy": "product"
+    },
+    "materials": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::material.material",
+      "mappedBy": "product"
+    },
+    "styles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::style.style",
+      "mappedBy": "product"
+    },
+    "special_features": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::specialfeature.specialfeature",
+      "mappedBy": "product"
+    },
+    "imgjson": {
+      "type": "json"
     }
   }
 }

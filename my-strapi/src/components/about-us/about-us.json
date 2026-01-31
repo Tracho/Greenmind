@@ -6,7 +6,7 @@
   },
   "options": {},
   "attributes": {
-    "Header": {
+    "header": {
       "type": "string"
     },
     "subtitle": {

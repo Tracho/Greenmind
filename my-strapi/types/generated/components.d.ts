@@ -8,7 +8,7 @@ export interface AboutUsAboutUs extends Struct.ComponentSchema {
   };
   attributes: {
     cycle: Schema.Attribute.Component<'about-us.cycle', true>;
-    Header: Schema.Attribute.String;
+    header: Schema.Attribute.String;
     subtitle: Schema.Attribute.Text;
   };
 }
@@ -120,7 +120,7 @@ export interface MainCategoriesMainCategories extends Struct.ComponentSchema {
   };
   attributes: {
     cycle: Schema.Attribute.Component<'main-categories.cycle', true>;
-    Header: Schema.Attribute.String;
+    header: Schema.Attribute.String;
     subtitle: Schema.Attribute.String;
   };
 }
@@ -152,6 +152,22 @@ export interface MainCommentsMainComments extends Struct.ComponentSchema {
   };
 }
 
+export interface TechnicalProductSpecs extends Struct.ComponentSchema {
+  collectionName: 'components_technical_product_specs_s';
+  info: {
+    displayName: 'ProductSpecs ';
+    icon: 'connector';
+  };
+  attributes: {
+    Brand: Schema.Attribute.String;
+    Color: Schema.Attribute.String;
+    Material: Schema.Attribute.String;
+    Size: Schema.Attribute.String;
+    SpecialFeature: Schema.Attribute.String;
+    Style: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -166,6 +182,7 @@ declare module '@strapi/strapi' {
       'main-categories.main-categories': MainCategoriesMainCategories;
       'main-comments.cycle-card': MainCommentsCycleCard;
       'main-comments.main-comments': MainCommentsMainComments;
+      'technical.product-specs': TechnicalProductSpecs;
     }
   }
 }

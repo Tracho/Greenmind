@@ -1,31 +1,33 @@
 import Image from "next/image";
-import { TypeCardCate } from "@/components/types/global";
+import { TypeMainCategoriesCycle } from "@/components/types/global";
 import Button from "./Button";
 import SVGArrowRight from "../icons/SVGArrowRight";
 
-type TypeCardCateProps = TypeCardCate & {
+type TypeCardCateProps = TypeMainCategoriesCycle & {
   plusClass?: string;
+  HOST_STRIPE: string;
 };
 
-function InfoCardsCate({ imgUrl, imgAlt = "", url = "", title, header, plusClass = "", titleLink }: TypeCardCateProps) {
+function InfoCardsCate({ img, subtitle, header, plusClass = "", text_btn, HOST_STRIPE }: TypeCardCateProps) {
   return (<>
-
-    <div className={`flex flex-col justify-center items-center ${plusClass}`}>
-      <div className="flex flex-col items-center">
-        {imgUrl && <Image className="rounded-2xl" src={imgUrl} alt={imgAlt} width={300} height={360} />}
-        <div className="flex flex-col justify-end text-lg text-center mt-3">
-          <p className="font-bold my-3">{header}</p>
-          {title && <p className="color_blackgray">{title}</p>}
+    {header &&
+      <div className={`flex flex-col justify-center items-center ${plusClass}`}>
+        <div className="flex flex-col items-center">
+          {img?.url && <Image className="rounded-2xl" src={HOST_STRIPE +img.url} alt={img.alternativeText || ""} width={300} height={360} layout="load" />}
+          <div className="flex flex-col justify-end text-lg text-center mt-3">
+            {header && <p className="font-bold my-3">{header}</p>}
+            {subtitle && <p className="color_blackgray">{subtitle}</p>}
+          </div>
+          {text_btn &&
+            <div className="flex items-center justify-center">
+              <Button classStyle="mt-6 bg-white" newP="px-6 py-3.5">
+                {text_btn ? text_btn : "Shop Now"}
+                <SVGArrowRight />
+              </Button>
+            </div>}
         </div>
-        {titleLink &&
-          <div className="flex items-center justify-center">
-            <Button classStyle="mt-6 bg-white" newP="px-6 py-3.5">
-              {titleLink ? titleLink : "Shop Now"}
-              <SVGArrowRight />
-            </Button>
-          </div>}
       </div>
-    </div>
+    }
   </>);
 }
 

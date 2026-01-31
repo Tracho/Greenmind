@@ -21,7 +21,7 @@ export const query1 = `
       ... on ComponentAboutUsAboutUs {
       __typename
         id
-        Header
+        header
         subtitle
         cycle {
           header
@@ -110,7 +110,7 @@ query HomePage($pagination: PaginationArg, $productsPagination2: PaginationArg, 
       ... on ComponentAboutUsAboutUs {
       __typename
         id
-        Header
+        header
         subtitle
         cycle {
           header
@@ -140,7 +140,7 @@ query HomePage($pagination: PaginationArg, $productsPagination2: PaginationArg, 
       ... on ComponentMainCategoriesMainCategories {
       __typename
         id
-        Header
+        header
         subtitle
         cycle {
           header

@@ -4,28 +4,71 @@ import picture1 from "@/public/images/item1.png";
 import { TypeBestSellingPlantsItem, TypeImageData } from "@/components/types/global";
 import Link from "next/link";
 
+import Likes from "@/public/like_gray.svg";
+import Bag from "@/public/bag_gray.svg";
+
 type BSPCardProps = TypeBestSellingPlantsItem & TypeImageData & {
   imgUrl?: string | undefined;
+  imgjson?: string | undefined;
   plusClass?: string;
-  HOST_STRIPE?: string
+  HOST_STRIPE?: string;
+  imgClass?: string;
+  subContainClass?: string;
 };
 
-function BSP_card({ link = "#", imgUrl, alternativeText, price, HOST_STRIPE, number_price, currency, header, width = 300, height = 360, plusClass = "" }: BSPCardProps) {
+function BSP_card({
+  link = "#",
+  imgUrl,
+  imgjson,
+  alternativeText,
+  price,
+  HOST_STRIPE,
+  number_price,
+  currency,
+  header,
+  width = 300,
+  height = 360,
+  likes,
+  sold,
+  inStock,
+  plusClass = "",
+  imgClass = "rounded-2xl w-full h-[360]",
+  subContainClass = 'max-w-[300]',
+}: BSPCardProps) {
   return (<>
 
-    <div className={`flex flex-col justify-center items-center ${plusClass}`}>
-      <div className="max-w-[300]">
+    <div className={`flex flex-col justify-start items-center ${plusClass}`}>
+      <div className={subContainClass}>
         <Link href={link}>
           <div className="max-w-[300] max-h-[360] flex justify-center items-center">
-            <Image className="rounded-2xl" src={(imgUrl ? HOST_STRIPE + imgUrl : picture1)} alt={alternativeText || "Image"} width={width} height={height} />
-          </div>
-          <div className="flex flex-col justify-end text-lg mt-3">
-            <p>{header}</p>
-            {price ?
-              <p className="color_blackgray">{price}</p>
-              :
-              <p className="color_blackgray">{currency}{number_price}</p>
+            {imgjson ?
+             <Image className={imgClass} src={imgjson} alt={alternativeText || "Image"} width={width} height={height} /> :
+              <Image className={imgClass} src={(imgUrl ? HOST_STRIPE + imgUrl : picture1)} alt={alternativeText || "Image"} width={width} height={height} />
             }
+          </div>
+          <div className="flex flex-col justify-between text-lg mt-3">
+            <p>{header}</p>
+
+            <div className="flex flex-wrap justify-between mt-1.5 items-center gap-2.5 color_blackgray">
+              {price ?
+                <p>{price}</p>
+                :
+                <p><span>{currency}</span>{number_price}</p>
+              }
+              {likes && <p>
+                <Image src={Likes} alt="Likes" width={18} height={18} className="inline-block mr-1 mb-1" />
+                {likes}
+              </p>}
+              {sold && <p>
+                <Image src={Bag} alt="Sold" width={18} height={18} className="inline-block mr-1 mb-1" />
+                {sold}
+              </p>}
+              {/* <p>
+                {inStock ? `In Stock: ${inStock}` : "Out of Stock"}
+              </p> */}
+
+            </div>
+
           </div>
         </Link>
       </div>

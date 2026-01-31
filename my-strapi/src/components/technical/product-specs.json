@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_technical_product_specs_s",
+  "info": {
+    "displayName": "ProductSpecs ",
+    "icon": "connector"
+  },
+  "options": {},
+  "attributes": {
+    "Brand": {
+      "type": "string"
+    },
+    "Material": {
+      "type": "string"
+    },
+    "Color": {
+      "type": "string"
+    },
+    "SpecialFeature": {
+      "type": "string"
+    },
+    "Style": {
+      "type": "string"
+    },
+    "Size": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

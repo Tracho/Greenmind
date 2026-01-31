@@ -60,7 +60,10 @@ export type TypeBestSellingPlantsItem = {
   header?: string;
   price?: string;
   currency?: string;
-  number_price?:number | null;
+  number_price?: number | null;
+  likes?: number | null;
+  sold?: number | null;
+  inStock?: Boolean | null;
   image?: TypeImageData; // картинка может быть, поэтому "?"
   img?: TypeImageData; // картинка может быть, поэтому "?"
 };
@@ -79,23 +82,41 @@ export type TypeBestSellingPlants = {
 export type TypeAboutUs = {
   __typename: "ComponentAboutUsAboutUs";
   id: number;
-  Header: string;
+  header: string;
   subtitle: string;
-  cycle: any[]; // если оставишь пустым — уточним позже
+  cycle: TypeAboutUsCycle[]; // если оставишь пустым — уточним позже
 };
+export type TypeAboutUsCycle = {
+  header: string;
+  subtitle: string;
+}
 export type TypeMainCategories = {
   __typename: "ComponentMainCategoriesMainCategories";
   id: number;
-  Header: string;
+  header: string;
   subtitle: string;
-  cycle: any[];
+  text_btn: string | null;
+  cycle: TypeMainCategoriesCycle[];
 };
+export type TypeMainCategoriesCycle = {
+  header: string | null;
+  subtitle: string | null;
+  text_btn: string | null;
+  img: TypeImageData
+}
 export type TypeMainComments = {
   __typename: "ComponentMainCommentsMainComments";
   id: number;
   header: string;
-  cycle: any[];
+  cycle: TypeMainCommentsCycle[];
 };
+export type TypeMainCommentsCycle = {
+  message: string;
+  name: string;
+  rating?: number | null;
+  social?: string | null;
+  img: TypeImageData
+}
 export type TypeBlocks =
   | TypeHeaderBlock
   | TypeBestSellingPlants
@@ -111,14 +132,14 @@ export type TypeHomePageResponse = {
   publishedAt?: string;
   HomePage: TypeBlocks[];
   homePage: {
-    HomePage:TypeBlocks[];
+    HomePage: TypeBlocks[];
   }
-  products?:TypeProducts[];
-  globals?:Typeglobals[];
+  products?: TypeProducts[];
+  globals?: Typeglobals[];
 };
 
 export type Typeglobals = {
-  currency:string;
+  currency: string | null;
 };
 
 
@@ -127,15 +148,19 @@ export type TypeProducts = {
   images: TypeImageData[];
   likes?: number | null;
   sold?: number | null;
-  slug:string;
+  inStock?: boolean | null;
+  slug: string;
   price: number | null;
   title: string;
+  publishedAt: string;
+  imgjson: string;
 };
 export type TypeCardCate = {
   imgUrl: string;
   imgAlt?: string;
+  img?: TypeImageData
   url?: string;
-  title?: string;
+  subtitle?: string;
   header: string;
   titleLink?: string;
 };
@@ -143,12 +168,12 @@ export type TypeCardCate = {
 export type TypeInfoCard = {
   svg: React.ReactNode;
   header: string;
-  title: string;
+  subtitle: string;
 };
 
 export type TypeH2Header = {
-  header: string;
-  title: string;
+  header: string | undefined;
+  subtitle?: string | undefined;
 };
 
 export type TypeSlidsInfo = {
@@ -159,3 +184,83 @@ export type TypeSlidsInfo = {
   rating?: number | null | undefined,
   message: string,
 }[]
+
+// export type TypeProdictsVariablesServer = {
+//   pagination: TypeProductsImgCount,
+//   productsPagination2?: TypePageProductsPagination2,
+//   sort?: string[] | null;
+//   filters?: TypeFiltresQueryParams;
+//   brands?: TypeProductsCateName;
+//   colors?: TypeProductsCateName;
+// }
+export type TypeProdictsVariables = {
+  pagination?: TypeProductsImgCount,
+  productsPagination2?: TypePageProductsPagination2,
+  imagesPagination2?: TypePageProductsPagination2,
+  sort: string[] | null;
+  filters: TypeFiltresQueryParams;
+  brands?: TypeProductsCateName;
+  colors?: TypeProductsCateName;
+}
+export type TypeProductsCateName = {
+  name?: string | null;
+}
+export type TypeProductsImgCount = {
+  page?: number | null,
+  pageSize?: number | null,
+  total?: number | null,
+  pageCount?: number | null,
+}
+export type TypePageProductsPagination2 = {
+  limit?: number | null,
+
+}
+
+export type TypeFiltresQueryParams = {
+  likes?: TypeFiltresOptions,
+  price: TypeFiltresOptions,
+  sold?: TypeFiltresOptions,
+  brand: { name: { in: string[] } },
+  colors: { name: { in: string[] } }
+}
+export type TypeFiltresCategory = {
+  brand?: TypeFiltresQuerySubParams,
+  colors?: TypeFiltresQuerySubParams
+}
+
+export type TypeFiltresOptions = {
+  gte?: null | number | string,
+  lte?: null | number | string,
+}
+export type TypeFiltresQuerySubParams = {
+  gte?: null | number | string,
+  lte?: null | number | string,
+  desc?: string | undefined,
+  asc?: string | undefined,
+  in?: string[] | null | undefined
+  name?: {
+    in?: string[] | null | undefined
+  }
+}
+
+export type TypeProductsResponse = {
+  products_connection: {
+    nodes: TypeProducts[],
+    pageInfo: {
+      page: number
+      pageCount: number
+      pageSize: number
+      total: number
+    }
+  }
+  maxPriceProduct:{nodes:[{price:number}]}
+  brands?: Brands;
+  colors?: Brands;
+  globals?: Typeglobals[];
+  products?: TypeProducts[];
+}
+
+export type Brand = { name: string };
+export type Brands = Brand[];
+export type Color = { name: string };
+export type Colors = Color[];

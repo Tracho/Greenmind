@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 export default function DrawArrow() {
   return (
     <svg
+      className="w-full"
       width="120"
       height="180"
       viewBox="0 0 120 180"

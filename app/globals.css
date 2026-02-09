@@ -123,3 +123,103 @@ body {
     /* Скрыть лишний текст */
   }
 }
+
+.abTopCenter {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+.catalog_card {
+  &:hover {
+    position: relative;
+
+    .catalog_card_info {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, 0%);
+      z-index: 20;
+      width: 100%;
+      padding-right: 12px;
+      padding-left: 12px;
+
+      p {
+        -webkit-line-clamp: none;
+        overflow: visible;
+      }
+    }
+
+  }
+
+  p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Количество строк (например, 3) */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    /* Скрыть лишний текст */
+  }
+}
+
+.hover_center_line {
+  position: relative;
+  text-decoration: none;
+  color: #000
+}
+
+.hover_center_line:hover {
+  color: #000
+}
+
+.hover_center_line:before {
+  display: block;
+  position: absolute;
+  content: "";
+  height: 1px;
+  border-radius: 10px;
+  width: 0;
+  background: #97c8c8;
+  transition: width .3s ease-in-out, left .3s ease-in-out;
+  left: 50%;
+  bottom: 0
+}
+
+.hover_center_line:hover:before,
+.hover_center_line[active]:before,
+.hover_center_line[datatype="active"]:before {
+  width: 100%;
+  left: 0
+}
+
+@media (max-width:786px) {
+  .menu {
+    background: #C1DCDC;
+    display: flex;
+    position: relative;
+  }
+
+  .monu_container {
+    position: absolute;
+    background: #ffffff;
+    top: 100%;
+    height: 100vh;
+    right: 0;
+    z-index: 99;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+    white-space: nowrap;
+    align-items: start;
+  }
+
+
+
+  .menu>.monu_container>ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}

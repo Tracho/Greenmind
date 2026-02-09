@@ -474,7 +474,7 @@ export interface ApiColorColor extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::color.color'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
-    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -567,7 +567,7 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
-    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -587,7 +587,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   };
   attributes: {
     brand: Schema.Attribute.Relation<'manyToOne', 'api::brand.brand'>;
-    colors: Schema.Attribute.Relation<'oneToMany', 'api::color.color'>;
+    colors: Schema.Attribute.Relation<'manyToMany', 'api::color.color'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -598,7 +598,6 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    imgjson: Schema.Attribute.JSON;
     inStock: Schema.Attribute.Boolean;
     likes: Schema.Attribute.Decimal;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -607,17 +606,20 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'api::product.product'
     > &
       Schema.Attribute.Private;
-    materials: Schema.Attribute.Relation<'oneToMany', 'api::material.material'>;
+    materials: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::material.material'
+    >;
     oldPrice: Schema.Attribute.Decimal;
     price: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'title'>;
     sold: Schema.Attribute.BigInteger;
-    special_features: Schema.Attribute.Relation<
-      'oneToMany',
+    specialfeatures: Schema.Attribute.Relation<
+      'manyToMany',
       'api::specialfeature.specialfeature'
     >;
-    styles: Schema.Attribute.Relation<'oneToMany', 'api::style.style'>;
+    styles: Schema.Attribute.Relation<'manyToMany', 'api::style.style'>;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -647,7 +649,7 @@ export interface ApiSpecialfeatureSpecialfeature
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
-    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -673,7 +675,7 @@ export interface ApiStyleStyle extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::style.style'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
-    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

@@ -4,7 +4,7 @@ function ParseUrlQuery(queryParams: Record<string, string | undefined>) {
   const Result: TypeVariablesOBJ = {
     pagination: {
       page: 1,
-      pageSize: 4, // количесто элементов на странице 
+      pageSize: 12, // количесто элементов на странице 
       // total: null,
       // pageCount: null,
     },
@@ -12,7 +12,7 @@ function ParseUrlQuery(queryParams: Record<string, string | undefined>) {
     imagesPagination2: { limit: 1 }, // for product images
 
   };
- 
+
 
   if (!queryParams || Object.keys(queryParams).length === 0) return Result;
   for (const queryKey in queryParams) {
@@ -27,8 +27,8 @@ function ParseUrlQuery(queryParams: Record<string, string | undefined>) {
       continue;
     }
 
-    if(queryKey === "page"){
-      Result.pagination ??= {page:Number(value)}
+    if (queryKey === "page") {
+      Result.pagination ??= { page: Number(value) }
       Result.pagination.page = Number(value);
     }
 
@@ -42,11 +42,16 @@ function ParseUrlQuery(queryParams: Record<string, string | undefined>) {
         Result[key][category][method] = Number(value);
       }
     }
-
+    
     if (parts.length === 4 && parts[0] === "filters") {
       const [key, category, name, method] = parts;
       if (
-        (category === "brand" || category === "colors") &&
+        (category === "brand" ||
+         category === "colors" ||
+          category === "specialfeatures" ||
+          category === "materials" ||
+          category === "styles"
+        ) &&
         (name === "name") &&
         (method === "in")
       ) {

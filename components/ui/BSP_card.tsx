@@ -22,6 +22,9 @@ function BSP_card({
   imgjson,
   alternativeText,
   price,
+  discount = null,
+  discountboolean = null,
+  oldPrice = null,
   HOST_STRIPE,
   number_price,
   currency,
@@ -37,36 +40,52 @@ function BSP_card({
 }: BSPCardProps) {
   return (<>
 
-    <div className={`flex flex-col justify-start items-center ${plusClass}`}>
-      <div className={subContainClass}>
+    <div className={`catalog_card flex flex-col justify-start items-center ${plusClass}`}>
+      <div className={`${subContainClass}`}>
         <Link href={link}>
           <div className="max-w-[300] max-h-[360] flex justify-center items-center">
-            {imgjson ?
-             <Image className={imgClass} src={imgjson} alt={alternativeText || "Image"} width={width} height={height} /> :
-              <Image className={imgClass} src={(imgUrl ? HOST_STRIPE + imgUrl : picture1)} alt={alternativeText || "Image"} width={width} height={height} />
-            }
+            <Image className={imgClass} src={(imgUrl ? HOST_STRIPE + imgUrl : picture1)} alt={alternativeText || "Image"} width={width} height={height} />
           </div>
-          <div className="flex flex-col justify-between text-lg mt-3">
-            <p>{header}</p>
+          <div className="flex flex-col justify-between catalog_card_info bg-white rounded-2xl text-lg py-3">
+            <p className="text-base">{header}</p>
 
-            <div className="flex flex-wrap justify-between mt-1.5 items-center gap-2.5 color_blackgray">
-              {price ?
-                <p>{price}</p>
-                :
-                <p><span>{currency}</span>{number_price}</p>
+            <div className="flex flex-wrap justify-between mt-1.5 items-end color_blackgray">
+              {
+                discountboolean && discount ?
+                  <div className="flex flex-col flex-wrap">
+                    <div className="flex flex-nowrap gap-1.5 items-center">
+                      <p className="line-through text-sm color_graygray">
+                        <span>{currency}{oldPrice}</span>
+                      </p>
+                      <p className="text-orange-600 text-sm font-semibold">-{discount}%</p>
+                    </div>
+                    {/* <p><span>{currency}</span>{number_price}</p> */}
+                  </div>
+                  : ""
+                // price ?
+                //   <p>{price}</p>
+                //   :
+                //   <p><span>{currency}</span>{number_price}</p>
+
               }
-              {likes && <p>
-                <Image src={Likes} alt="Likes" width={18} height={18} className="inline-block mr-1 mb-1" />
-                {likes}
-              </p>}
-              {sold && <p>
-                <Image src={Bag} alt="Sold" width={18} height={18} className="inline-block mr-1 mb-1" />
-                {sold}
-              </p>}
-              {/* <p>
+              <div className="flex w-full justify-between items-center">
+                {price ?
+                  <p>{price}</p>
+                  :
+                  <p><span>{currency}</span>{number_price}</p>
+                }
+                {likes && <p>
+                  <Image src={Likes} alt="Likes" width={18} height={18} className="inline-block mr-1 mb-1" />
+                  {likes}
+                </p>}
+                {sold && <p>
+                  <Image src={Bag} alt="Sold" width={18} height={18} className="inline-block mr-1 mb-1" />
+                  {sold}
+                </p>}
+                {/* <p>
                 {inStock ? `In Stock: ${inStock}` : "Out of Stock"}
               </p> */}
-
+              </div>
             </div>
 
           </div>

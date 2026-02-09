@@ -22,6 +22,7 @@ async function Product({ searchParams }: { searchParams: { [key: string]: string
 
 
   const ObjVariables: TypeVariablesOBJ = ParseUrlQuery(queryParams);
+   
   const res = await fetch(GQL, {
     method: "POST",
     headers: {
@@ -32,8 +33,9 @@ async function Product({ searchParams }: { searchParams: { [key: string]: string
       variables: ObjVariables,
     }),
   });
-
+   
   const jsonRes = await res.json();
+  // const jsonResponse:any = jsonRes.data;
   const jsonResponse:TypeProductsResponse = jsonRes.data;
   // console.log("ObjVariables",ObjVariables)
   console.log("jsonResponse", jsonResponse);

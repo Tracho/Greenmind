@@ -60,30 +60,27 @@
     },
     "colors": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::color.color",
-      "mappedBy": "product"
+      "inversedBy": "products"
     },
     "materials": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::material.material",
-      "mappedBy": "product"
+      "inversedBy": "products"
     },
     "styles": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::style.style",
-      "mappedBy": "product"
+      "inversedBy": "products"
     },
-    "special_features": {
+    "specialfeatures": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::specialfeature.specialfeature",
-      "mappedBy": "product"
-    },
-    "imgjson": {
-      "type": "json"
+      "inversedBy": "products"
     }
   }
 }

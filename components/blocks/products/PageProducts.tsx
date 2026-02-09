@@ -26,6 +26,9 @@ type GlobalData = {
   maxPrice: number;
   dataColors: Colors;
   dataBrands: Brands;
+  dataMaterials: Brands;
+  dataStyles: Brands;
+  dataspecialfeatures: Brands;
   pageInfo: {
     pageSize: number,
     pageCount: number,
@@ -38,6 +41,7 @@ type Props = {
   jsonResponse: TypeProductsResponse,
   ObjVariables: TypeVariablesOBJ,
 };
+
 function PageProducts({ jsonResponse, ObjVariables }: Props) {
 
   const [globalData, setGlobalData] = useState<GlobalData>(
@@ -48,6 +52,9 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
       maxPrice: jsonResponse.maxPriceProduct?.nodes[0]?.price || 0,
       dataColors: jsonResponse.colors ?? [],
       dataBrands: jsonResponse.brands ?? [],
+      dataMaterials: jsonResponse.materials ?? [],
+      dataStyles: jsonResponse.styles ?? [],
+      dataspecialfeatures: jsonResponse.specialfeatures ?? [],
     }
   );
 
@@ -60,6 +67,9 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
         // sold: { gte: ObjVariables.filters.sold?.gte || "", lte: ObjVariables.filters.sold?.lte || "" },
         brand: { name: { in: ObjVariables.filters?.brand?.name.in || [] } },
         colors: { name: { in: ObjVariables.filters?.colors?.name.in || [] } },
+        materials: { name: { in: ObjVariables.filters?.materials?.name.in || [] } },
+        styles: { name: { in: ObjVariables.filters?.styles?.name.in || [] } },
+        specialfeatures: { name: { in: ObjVariables.filters?.specialfeatures?.name.in || [] } },
       },
       pagination: {
         pageSize: ObjVariables.pagination?.pageSize || 3,
@@ -122,8 +132,8 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
 
   return (<>
     <div className="mxw_1440 px96_15 mx-auto mt-6">
-      <div className="flex flex-nowrap">
-        <div className="w-1/2 max-w-[300px] min-w-[225px] bg-slate-100 p-4 rounded-2xl me-5">
+      <div className="flex flex-nowrap gap-5 ">
+        <div className="w-[300px] shrink-0 bg-slate-100 p-4 rounded-2xl">
           <Product_Filters_Range_Input
             filters={selectedFilters.filters ?? {}}
             maxPrice={globalData.maxPrice}
@@ -144,6 +154,8 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
               }))
             }
           />
+
+         
           <Category
             header="Categories Brands"
             dataCate={globalData.dataBrands}
@@ -184,9 +196,69 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
               }))
             }
           />
+          <Category
+            header="Categories Materials"
+            dataCate={globalData.dataMaterials}
+            selectedCate={selectedFilters.filters.materials.name.in}
+            onChange={(materials) =>
+              setSelectedFilters(prev => ({
+                ...prev,
+                pagination: {
+                  ...prev.pagination,
+                  page: 1
+                },
+                filters: {
+                  ...prev.filters,
+                  materials: {
+                    name: { in: materials },
+                  },
+                },
+              }))
+            }
+          />
+          <Category
+            header="Categories styles"
+            dataCate={globalData.dataStyles}
+            selectedCate={selectedFilters.filters.styles.name.in}
+            onChange={(styles) =>
+              setSelectedFilters(prev => ({
+                ...prev,
+                pagination: {
+                  ...prev.pagination,
+                  page: 1
+                },
+                filters: {
+                  ...prev.filters,
+                  styles: {
+                    name: { in: styles },
+                  },
+                },
+              }))
+            }
+          />
+          <Category
+            header="Categories special features"
+            dataCate={globalData.dataspecialfeatures}
+            selectedCate={selectedFilters.filters.specialfeatures.name.in}
+            onChange={(specialfeatures) =>
+              setSelectedFilters(prev => ({
+                ...prev,
+                pagination: {
+                  ...prev.pagination,
+                  page: 1
+                },
+                filters: {
+                  ...prev.filters,
+                  specialfeatures: {
+                    name: { in: specialfeatures },
+                  },
+                },
+              }))
+            }
+          />
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex w-full flex-col">
           <Sorting_Bar
             querySort={selectedFilters.sort}
             onChange={(ARGsort: string) => {
@@ -211,7 +283,6 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
                 };
               });
             }}
-
           />
 
           {globalData.dataProducts.length !== 0 ?

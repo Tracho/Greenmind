@@ -6,6 +6,7 @@ export default {
       defaultLimit: 50,
       maxLimit: 1000,
       depthLimit: 10,
+      // breakpoints: false,
     },
   },
 };

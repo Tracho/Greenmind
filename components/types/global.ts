@@ -66,6 +66,9 @@ export type TypeBestSellingPlantsItem = {
   inStock?: Boolean | null;
   image?: TypeImageData; // картинка может быть, поэтому "?"
   img?: TypeImageData; // картинка может быть, поэтому "?"
+  discount?: null | number;
+  discountboolean?: null | boolean;
+  oldPrice?: null | number;
 };
 
 export type TypeBestSellingPlants = {
@@ -154,6 +157,9 @@ export type TypeProducts = {
   title: string;
   publishedAt: string;
   imgjson: string;
+  discount?: null | number;
+  discountboolean?: null | boolean;
+  oldPrice?: null | number;
 };
 export type TypeCardCate = {
   imgUrl: string;
@@ -201,6 +207,9 @@ export type TypeProdictsVariables = {
   filters: TypeFiltresQueryParams;
   brands?: TypeProductsCateName;
   colors?: TypeProductsCateName;
+  materials?: TypeProductsCateName;
+  styles?: TypeProductsCateName;
+  specialfeatures?: TypeProductsCateName;
 }
 export type TypeProductsCateName = {
   name?: string | null;
@@ -221,7 +230,10 @@ export type TypeFiltresQueryParams = {
   price: TypeFiltresOptions,
   sold?: TypeFiltresOptions,
   brand: { name: { in: string[] } },
-  colors: { name: { in: string[] } }
+  colors: { name: { in: string[] } },
+  materials: { name: { in: string[] } },
+  styles: { name: { in: string[] } },
+  specialfeatures: { name: { in: string[] } },
 }
 export type TypeFiltresCategory = {
   brand?: TypeFiltresQuerySubParams,
@@ -253,11 +265,17 @@ export type TypeProductsResponse = {
       total: number
     }
   }
-  maxPriceProduct:{nodes:[{price:number}]}
+  maxPriceProduct: { nodes: [{ price: number }] }
   brands?: Brands;
   colors?: Brands;
+  materials?: Brands;
+  styles?: Brands;
+  specialfeatures?: Brands;
   globals?: Typeglobals[];
   products?: TypeProducts[];
+  discount?: null | number;
+  discountboolean?: null | boolean;
+  oldPrice?: null | number;
 }
 
 export type Brand = { name: string };

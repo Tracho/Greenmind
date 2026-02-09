@@ -4,6 +4,9 @@ export type TypeVariablesOBJ = {
     price?:{gte?:number, lte?:number}
     brand?:{name:{in:string[]}}
     colors?:{name:{in:string[]}}
+    materials?:{name:{in:string[]}}
+    styles?:{name:{in:string[]}}
+    specialfeatures?:{name:{in:string[]}}
   }
   pagination?: { 
     page?: number | null,

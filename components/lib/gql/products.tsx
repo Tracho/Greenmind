@@ -14,7 +14,9 @@ query Products(
       sold
       inStock
       publishedAt
-      imgjson
+      discount
+      discountboolean
+      oldPrice
       images(pagination: $imagesPagination2) {
         url
         width
@@ -50,8 +52,18 @@ query Products(
   colors {
     name
   }
+  materials {
+    name
+  }
+  styles {
+    name
+  }
+  specialfeatures {
+    name
+  }
+
 }
-` 
+`
 // export const query = `
 // query Images($pagination: PaginationArg, $productsPagination2: PaginationArg, $sort: [String], $filters: ProductFiltersInput) {
 //   products(pagination: $productsPagination2, sort: $sort, filters: $filters) {

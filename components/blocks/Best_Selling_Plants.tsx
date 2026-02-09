@@ -52,13 +52,13 @@ function Best_Selling_Plants({ HOST_STRIPE, data, products, globals }:
             <BSP_card key={index}
               link={`/products/${card.slug}`}
               HOST_STRIPE={HOST_STRIPE}
-              imgUrl={card.images[0].url}
-              alternativeText={card.images[0].alternativeText}
+              imgUrl={card.images[0]?.url}
+              alternativeText={card.images[0]?.alternativeText}
               number_price={card.price}
               currency={globals?.currency || "$"}
               header={card.title}
-              width={card.images[0].width}
-              height={card.images[0].height}
+              width={card.images[0]?.width}
+              height={card.images[0]?.height}
               plusClass="xl:w-1/4 sm:w-1/2 max-w-[300px] w-full my-5 line-clamp"
               imgClass="rounded-2xl w-full object-cover max-w-[300px] h-[100vh] max-h-[360px]" />
           );

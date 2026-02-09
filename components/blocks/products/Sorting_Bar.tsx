@@ -1,101 +1,154 @@
 "use client";
-
-import { useMemo } from "react"; 
+import { motion, useAnimate } from "framer-motion";
+import SVGArrowDown from "@/components/icons/SVGArrowDown";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Props = {
   querySort: string[] | null,
   onChange: (sort: string) => void
+  onClick?: (sort: string) => void
 };
 
+type TypeSelectedOptionMini = {
+  title: string,
+  title_default: string,
+  title_desc: string,
+  title_asc: string,
+  default: string,
+  desc: string,
+  asc: string
+}
+
+type TypeSelectedOption = {
+  likes: TypeSelectedOptionMini
+  sold: TypeSelectedOptionMini
+  price: TypeSelectedOptionMini
+  discountboolean: TypeSelectedOptionMini
+}
+
+type SelectedKeys = keyof TypeSelectedOption;
+type SelectedOptionMiniKeys = keyof TypeSelectedOptionMini;
+
 function Sorting_Bar({ querySort, onChange }: Props) {
-  const selectedOption: Record<string, Record<string, string>> = {
-    likes: {
-      default: 'likes:default',
-      desc: `likes:desc`,
-      asc: `likes:asc`,
-    },
-    sold: {
-      default: 'sold:default',
-      desc: `sold:desc`,
-      asc: `sold:asc`,
-    },
-    price: {
-      default: 'price:default',
-      desc: `price:desc`,
-      asc: `price:asc`,
-    }
+  const selectedOption: TypeSelectedOption = {
+    likes: { title: 'Sort by Likes', title_default: 'Sort by Likes', title_desc: 'More Likes', title_asc: 'Less Likes', default: 'likes:default', desc: `likes:desc`, asc: `likes:asc` },
+    sold: { title: 'Sort by Sales', title_default: 'Sort by Sales', title_desc: 'More Sales', title_asc: 'Less Sales', default: 'sold:default', desc: `sold:desc`, asc: `sold:asc` },
+    price: { title: 'Sort by Price', title_default: 'Sort by Price', title_desc: 'More Price', title_asc: 'Less Price', default: 'price:default', desc: `price:desc`, asc: `price:asc` },
+    discountboolean: { title: 'Sort by Discount', title_default: 'Sort by Discount', title_desc: 'With Discount', title_asc: 'Without Discount', default: 'discountboolean:default', desc: `discountboolean:desc`, asc: `discountboolean:asc` }
   }
 
-
-  // Извлекаем текущее значение для каждого селекта из массива ["key:order", ...]
   const currentValues = useMemo(() => {
-    const result = {
+    const result: Record<SelectedKeys, string> = {
       likes: selectedOption.likes.default,
       sold: selectedOption.sold.default,
       price: selectedOption.price.default,
+      discountboolean: selectedOption.discountboolean.default,
     };
- 
     if (querySort && Array.isArray(querySort)) {
       querySort.forEach(sortString => {
-        const [key, order] = sortString.split(":");
-        // Если ключ совпадает с нашими категориями, сохраняем строку целиком
-        if (key in result) {
-          result[key as keyof typeof result] = sortString;
-        }
+        const [key] = sortString.split(":");
+        if (key in result) result[key as SelectedKeys] = sortString;
       });
     }
     return result;
   }, [querySort]);
- 
-  const HeadlandChangeLikes = (value: string) => {
-    onChange(value);
+
+  // 1. Храним имя активного ключа вместо true/false
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [scope, animate] = useAnimate();
+
+  const toggleMenu = (key: string) => {
+    setActiveMenu(activeMenu === key ? null : key);
   };
 
-  return (<>
-    <div className="bg_aquamarine p-4 rounded-2xl mb-5">
-      <div className="flex flex-wrap items-center gap-4">
+  const containerRef = useRef<HTMLDivElement>(null);
 
-        {/* Sort by Likes */}
-        <div className="flex flex-wrap items-center gap-4">
-          <label className="mb-1 font-semibold">Sort by Likes</label>
-          <select id="Sort_by_Likes" className="p-2 rounded-xl border bg-white text-black"
-            onChange={(e) => HeadlandChangeLikes(e.target.value)}
-            value={currentValues.likes}
-          >
-            <option value={selectedOption.likes.default}>Default</option>
-            <option value={selectedOption.likes.desc}>More Likes</option>
-            <option value={selectedOption.likes.asc}>Less Likes</option>
-          </select>
-        </div>
+  useEffect(() => {
+    // Функция обработки клика
+    const handleClickOutside = (event: MouseEvent) => {
+      // Если клик был ВНЕ контейнера, закрываем меню
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setActiveMenu(null);
+      }
+    };
 
-        {/* Sort by Sales */}
-        <div className="flex flex-wrap items-center gap-4">
-          <label className="mb-1 font-semibold">Sort by Sales</label>
-          <select id="Sort_by_Sales" className="p-2 rounded-xl border bg-white text-black"
-            onChange={(e) => HeadlandChangeLikes(e.target.value)}
-          value={currentValues.sold}
-          >
-            <option value={selectedOption.sold.default}>Default</option>
-            <option value={selectedOption.sold.desc}>More Sales</option>
-            <option value={selectedOption.sold.asc}>Less Sales</option>
-          </select>
-        </div>
-        {/* Sort by Sales */}
-        <div className="flex flex-wrap items-center gap-4">
-          <label className="mb-1 font-semibold">Sort by Price</label>
-          <select id="Sort_by_Price" className="p-2 rounded-xl border bg-white text-black"
-            onChange={(e) => HeadlandChangeLikes(e.target.value)}
-          value={currentValues.price}
-          >
-            <option value={selectedOption.price.default}>Default</option>
-            <option value={selectedOption.price.desc}>More Price</option>
-            <option value={selectedOption.price.asc}>Less Price</option>
-          </select>
-        </div>
+    // Вешаем слушатель
+    window.addEventListener("mousedown", handleClickOutside);
+    // Убираем слушатель при размонтировании
+    return () => window.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+ 
+  useEffect(() => {
+    const keys = Object.keys(selectedOption);
+    keys.forEach((key) => {
+      const isOpen = activeMenu === key;
+      animate(
+        `ul[data-key="${key}"]`,
+        {
+          opacity: isOpen ? 1 : 0,
+          y: isOpen ? 0 : -10,
+          pointerEvents: isOpen ? "auto" : "none"
+        },
+        { duration: 0.2 },
+      );
 
+      animate(
+        `div[data-key="${key}"] .arrow-icon`,
+        { rotate: isOpen ? 180 : 0 },
+        { duration: 0.2 }
+      );
+    });
+  }, [activeMenu, animate]);
+
+  return (
+    <div className="bg_aquamarine p-4 rounded-2xl mb-5" ref={containerRef}>
+      <div className="flex flex-wrap items-center gap-4" ref={scope}>
+        {(Object.keys(selectedOption) as Array<SelectedKeys>).map((key) => {
+          let thisElem = selectedOption[key];
+          let currentTitle = `title_${currentValues[key].split(":")[1]}` as SelectedOptionMiniKeys;
+          return (
+            <div data-key={key} key={key} className="relative min-w-[160px]">
+              {/* Кастомный селект */}
+              <div
+                onClick={() => toggleMenu(key)}
+                className="flex justify-between gap-2 bg-white py-1 px-1.5 cursor-pointer rounded border border-gray-400 focus:border-gray-600 outline-none"
+              >
+                <span className="text-sm">{thisElem[currentTitle]}</span>
+                <span className="arrow-icon flex items-center justify-center">
+                  <SVGArrowDown w="16px" h="16px" />
+                </span>
+              </div>
+
+              {/* Список с уникальным data-атрибутом для анимации */}
+              <ul
+                data-key={key}
+                className="flex flex-col gap-1 mt-1 py-1 bg-white absolute w-full z-30 shadow-lg rounded border border-gray-400 focus:border-gray-600 outline-none"
+                style={{ opacity: 0, pointerEvents: "none" }}
+              >
+                {[
+                  { val: thisElem.default, label: thisElem.title_default },
+                  { val: thisElem.desc, label: thisElem.title_desc },
+                  { val: thisElem.asc, label: thisElem.title_asc }
+                ].map((opt) => (
+                  <li key={opt.val}>
+                    <button
+                      className={`cursor-pointer w-full text-start text-sm py-1 px-1.5 hover:bg-gray-100 ${currentValues[key] === opt.val ? 'text-aquamarine pointer-events-none bg-gray-100' : ''}`}
+                      onClick={() => {
+                        onChange(opt.val);
+                        setActiveMenu(null);
+                      }}
+                    >
+                      {opt.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        })}
       </div>
     </div>
-  </>);
+  );
 }
 
 export default Sorting_Bar;

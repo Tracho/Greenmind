@@ -1,5 +1,5 @@
 "use client"
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 import React, { useEffect, useRef, useState } from "react";
 import { TypeMainComments } from "@/components/types/global";
@@ -8,9 +8,12 @@ import SVGStar from "../icons/SVGStar";
 import Image from "next/image";
 
 function MainClientMessageSlider({ data, HOST_STRIPE }: { data: TypeMainComments, HOST_STRIPE: string }) {
-	let [MyData, SetMyData] = useState<TypeMainComments>(data);
+	const ref = useRef(null);
+	const isInView = useInView(ref);
+ 
 
-	let [timer, SetTimer] = useState<number>(300000);
+	let [MyData, SetMyData] = useState<TypeMainComments>(data);
+	let [timer, SetTimer] = useState<number>(2000);
 	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
 
@@ -33,7 +36,7 @@ function MainClientMessageSlider({ data, HOST_STRIPE }: { data: TypeMainComments
 	useEffect(() => {
 		if (!RefMaxW.current || !RefBoxSliderX.current) return;
 
-		if (!stopSlider) {
+		if (!stopSlider && isInView) {
 			const maxW = RefMaxW.current.scrollWidth;
 			const widthBox = Math.round(maxW / (MyData.cycle.length + 1));
 			// console.log(maxW - widthBox)
@@ -65,15 +68,8 @@ function MainClientMessageSlider({ data, HOST_STRIPE }: { data: TypeMainComments
 		};
 
 
-	}, [stopSlider]);
+	}, [stopSlider, isInView]);
 
-	// useEffect(() => {
-	// 	const maxW = RefMaxW.current?.scrollWidth || 0;
-	// 	const widthBox = Math.round(maxW / (MyData.cycle.length + 1));
-	// 	console.log("maxW - widthBox", maxW - (widthBox * 2))
-	// 	console.log("maxW", maxW)
-	// 	console.log("x", x)
-	// }, [x]);
 
 	function HeadlandClickNavigation(e: React.MouseEvent<HTMLSpanElement, MouseEvent>, i: number) {
 		if (RefMaxW.current) {
@@ -118,7 +114,7 @@ function MainClientMessageSlider({ data, HOST_STRIPE }: { data: TypeMainComments
 
 
 	return (<>
-		<div className="mxw_1440 px96_15 pt-24 mb-12 flex justify-between items-start flex-wrap sm:flex-nowrap gap-6">
+		<div ref={ref} className="mxw_1440 px96_15 pt-24 mb-12 flex justify-between items-start flex-wrap sm:flex-nowrap gap-6">
 
 			{MyData?.header &&
 				<div className="max-w-[457]">
@@ -127,7 +123,7 @@ function MainClientMessageSlider({ data, HOST_STRIPE }: { data: TypeMainComments
 			}
 
 			<div className="flex w-full sm:w-max justify-end  pt-0 sm:pt-2.5" onMouseEnter={HeadlandMouseEnter} onMouseLeave={HeadlandMouseLeave}>
-				
+
 				{
 					(MyData?.cycle && MyData?.cycle.length > 0) &&
 					MyData.cycle.map((elem, i) => {
@@ -157,7 +153,7 @@ function MainClientMessageSlider({ data, HOST_STRIPE }: { data: TypeMainComments
 						MyData?.cycle.map((e, i) => {
 							return (
 								<React.Fragment key={i}>
-									<span  className="flex">
+									<span className="flex">
 
 										<div className="flex flex-col justify-between shrink-0 w-[82vw] sm:w-[55vw] bg_aquamarine rounded-xl ">
 											<p className="p-6 sm:p-12 pb-0 text-lg text_color_dark">{e.message}</p>

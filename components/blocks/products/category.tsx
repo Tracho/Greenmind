@@ -37,7 +37,7 @@ function Category({ selectedCate, dataCate, onChange, header }: Props) {
     );
   };
 
-  console.log(dataCate)
+  // console.log(dataCate)
   return (
     <div className="w-full my-4 border border-gray-300 rounded bg-white">
       {header &&

@@ -32,7 +32,7 @@ function HeaderMain({ data, HOST_STRIPE }: { data: TypeHeaderBlock, HOST_STRIPE:
     <div className="mxw_1440 px96_15">
       <div className="bg_aquamarine pb-0 p-6 md:p-12 md:pb-0  rounded-3xl flex flex-wrap items-stretch justify-between relative  lg:overflow-hidden">
         
-        <div className="w-full md:max-w-md pb-32 z-50">
+        <div className="w-full md:max-w-md pb-32 z-20">
         {/* <div className="w-1/2 max-w-[450px] min-w-[450px] pb-32 z-50"> */}
           <h1 className="fs60_42 font-extrabold">{myData.header}</h1>
           <div className="flex justify-between max-w-[320px] mt-6">

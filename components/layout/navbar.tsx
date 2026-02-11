@@ -9,6 +9,7 @@ import { useAnimate, useInView } from "motion/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import ModalWindow from "../ui/ModalWindow";
+import { useCart } from "../context/CartContext";
 
 function NavBar() {
 	// const ref = useRef(null)
@@ -53,7 +54,9 @@ function NavBar() {
 		return isActive ? "font-medium text-black" : "font-normal text-zinc-900";
 	};
 
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isModalOpenLogin, setIsModalOpenLogin] = useState(false);
+	const [isModalOpenBasket, setIsModalOpenBasket] = useState(false);
+	const { cart, removeFromCart } = useCart();
 	return (
 		<>
 
@@ -90,8 +93,8 @@ function NavBar() {
 
 						{/* RIGHT ICONS & BURGER */}
 						<div className="flex items-center gap-5 md:gap-10 z-50">
-							<button className="cursor-pointer"><SVGCart clas="w-[28px] h-[28px]  md:w-[24px] md:h-[24px]" /></button>
-							<button className="cursor-pointer" onClick={() => setIsModalOpen(true)}><SVGPerson clas="w-[28px] h-[28px]  md:w-[24px] md:h-[24px]" /></button>
+							<button className="cursor-pointer" onClick={() => setIsModalOpenBasket(true)}><SVGCart clas="w-[28px] h-[28px]  md:w-[24px] md:h-[24px]" /></button>
+							<button className="cursor-pointer" onClick={() => setIsModalOpenLogin(true)}><SVGPerson clas="w-[28px] h-[28px]  md:w-[24px] md:h-[24px]" /></button>
 							<button className="cursor-pointer md:hidden" onClick={() => setIsOpenMenu(!isOpenMenu)}>
 								<SVGBurgerMenu clas="w-[28px] h-[28px]  md:w-[24px] md:h-[24px]" />
 							</button>
@@ -101,13 +104,34 @@ function NavBar() {
 
 
 
-				<ModalWindow isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+				<ModalWindow isOpen={isModalOpenBasket} onClose={() => setIsModalOpenBasket(false)}>
+
+
+					{cart.map((item) => (
+						<div key={item.id} className="flex items-center gap-2.5 justify-between p-2 border-b">
+							<div>
+								<Image src={item.image} alt={item.title} width={50} height={50} className="object-cover rounded" />
+							</div>
+							<span className="w-full">{item.title} (x{item.quantity})</span>
+							<button onClick={() => removeFromCart(item.id)}>❌</button>
+						</div>
+					))}
+
+					<button
+						className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
+						onClick={() => setIsModalOpenLogin(false)}
+					>
+						Понятно
+					</button>
+				</ModalWindow>
+
+				<ModalWindow isOpen={isModalOpenLogin} onClose={() => setIsModalOpenLogin(false)}>
 					<h2 className="text-2xl font-bold mb-4">Привет!</h2>
 					<p>Это контент, который пришел в children.</p>
 					<input placeholder="Search..." className="w-full p-2 text-sm bg-white rounded border border-gray-400 focus:border-gray-600 outline-none" type="text" value="" />
 					<button
 						className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
-						onClick={() => setIsModalOpen(false)}
+						onClick={() => setIsModalOpenLogin(false)}
 					>
 						Понятно
 					</button>

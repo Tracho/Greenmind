@@ -148,6 +148,7 @@ export type Typeglobals = {
 
 
 export type TypeProducts = {
+  documentId:string;
   images: TypeImageData[];
   likes?: number | null;
   sold?: number | null;
@@ -161,6 +162,13 @@ export type TypeProducts = {
   discountboolean?: null | boolean;
   oldPrice?: null | number;
 };
+export type TypeProduct = TypeProducts & {
+  createdAt: string;
+  description: string;
+  documentId: string;
+  updatedAt:string;
+};
+
 export type TypeCardCate = {
   imgUrl: string;
   imgAlt?: string;

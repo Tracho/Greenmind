@@ -8,14 +8,6 @@ query ExampleQuery($filters: ProductFiltersInput) {
     price
     sold
     likes
-    images_connection {
-      nodes {
-        width
-        url
-        alternativeText
-        height
-      }
-    }
     images {
       width
       url

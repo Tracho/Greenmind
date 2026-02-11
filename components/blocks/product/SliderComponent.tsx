@@ -1,8 +1,13 @@
 "use client";
+import { TypeImageData } from "@/components/types/global";
 import Image from "next/image";
 import { useState } from "react";
 
-export function SliderComponent({ images, HOST_STRIPE }: { images: { url: string; alternativeText: string }[]; HOST_STRIPE: string }) {
+type Props = {
+	images:TypeImageData[];
+  HOST_STRIPE: string;
+};
+export function SliderComponent({ images, HOST_STRIPE }: Props) {
 	const [index, setIndex] = useState(0);
 
 	const prev = () => (index <= 0 ? setIndex(images.length - 1) : setIndex(index - 1));

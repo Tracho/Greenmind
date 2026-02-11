@@ -7,6 +7,7 @@ query Products(
 ) {
   products_connection(filters: $filters, pagination: $pagination, sort: $sort) {
     nodes {
+      documentId   
       title
       slug
       price

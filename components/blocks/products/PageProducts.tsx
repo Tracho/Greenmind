@@ -29,6 +29,7 @@ type GlobalData = {
   dataMaterials: Brands;
   dataStyles: Brands;
   dataspecialfeatures: Brands;
+  databasket: string[],
   pageInfo: {
     pageSize: number,
     pageCount: number,
@@ -44,6 +45,8 @@ type Props = {
 
 function PageProducts({ jsonResponse, ObjVariables }: Props) {
 
+  const getLoccal = localStorage.getItem("databasket");
+
   const [globalData, setGlobalData] = useState<GlobalData>(
     {
       dataProducts: jsonResponse.products_connection?.nodes ?? [],
@@ -55,6 +58,7 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
       dataMaterials: jsonResponse.materials ?? [],
       dataStyles: jsonResponse.styles ?? [],
       dataspecialfeatures: jsonResponse.specialfeatures ?? [],
+      databasket:[],
     }
   );
 

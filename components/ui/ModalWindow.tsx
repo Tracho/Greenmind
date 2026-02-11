@@ -27,12 +27,12 @@ function ModalWindow({ children, isOpen, onClose }: Props) {
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            className="relative bg-white p-6 rounded-2xl shadow-xl min-w-[300px] z-[101]"
+            className="relative bg-white p-6 rounded-2xl shadow-xl min-w-[300px] max-w-[90vw] z-[101]"
           >
             {/* Кнопка закрытия (крестик) */}
             <button 
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-500 hover:text-black"
+              className="absolute cursor-pointer top-4 right-4 text-gray-500 hover:text-black"
             >
               ✕
             </button>

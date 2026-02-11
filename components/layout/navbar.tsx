@@ -10,6 +10,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import ModalWindow from "../ui/ModalWindow";
 import { useCart } from "../context/CartContext";
+import BasketInfo from "../ui/BasketInfo";
+
 
 function NavBar() {
 	// const ref = useRef(null)
@@ -105,8 +107,7 @@ function NavBar() {
 
 
 				<ModalWindow isOpen={isModalOpenBasket} onClose={() => setIsModalOpenBasket(false)}>
-
-
+					<BasketInfo cart={cart}  setIsModalOpenLogin={setIsModalOpenLogin}/>
 					{cart.map((item) => (
 						<div key={item.id} className="flex items-center gap-2.5 justify-between p-2 border-b">
 							<div>

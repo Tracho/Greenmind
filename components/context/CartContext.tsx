@@ -2,20 +2,16 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { TypeProduct } from "../types/global";
+import { TypeThisProduct } from "../types/basket";
 
-type TypeThisProduct = {
-  title: string;
-  price: number | null;
-  quantity: number;
-  image: string;
-  id: string;
-}
+
 type CartContextType = {
-  cart: TypeThisProduct[];
+  cart:  TypeThisProduct[];
   addToCart: (item: TypeThisProduct) => void;
   removeFromCart: (id: string | number) => void;
   clearCart: () => void;
 }
+
 const CartContext = createContext<CartContextType | undefined>(undefined)
 function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<TypeThisProduct[]>([]);

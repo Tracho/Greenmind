@@ -63,7 +63,7 @@ function ProductTitle({HOST_STRIPE, data, description, images} : Props) {
             {data?.shortDescription || "Great quality hanging baskets for indoor and outdoor use."}
           </p> */}
 
-          <button className="mt-4 bg-black text-white py-3 px-6 rounded-xl text-lg hover:bg-gray-900"
+          <button className="mt-4 bg-black cursor-pointer text-white py-3 px-6 rounded-xl text-lg hover:bg-gray-900"
             onClick={() => addToCart({
               id: data.documentId,
               title: data.title,

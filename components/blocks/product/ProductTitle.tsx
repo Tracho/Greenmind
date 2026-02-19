@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SliderComponent } from "@/components/blocks/product/SliderComponent";
 import { useCart } from "@/components/context/CartContext";
 import { TypeImageData, TypeProduct } from "@/components/types/global";
+import { usePathname } from "next/navigation";
 function convertMarkdown(md: string) {
   return md?.replace(/\n/g, "<br>") || "";
 }
@@ -11,9 +12,11 @@ type Props = {
   data:TypeProduct;
   description:string;
   images:TypeImageData[];
+  currency:string;
 }
 
-function ProductTitle({HOST_STRIPE, data, description, images} : Props) {
+function ProductTitle({HOST_STRIPE, data, description, images,currency = "$"} : Props) {
+  const pathname = usePathname()
   const { addToCart } = useCart();
 
   return (<>
@@ -44,7 +47,7 @@ function ProductTitle({HOST_STRIPE, data, description, images} : Props) {
           <h1 className="text-2xl font-bold">{data?.title}</h1>
 
           <div className="flex items-center gap-3 text-lg">
-            <span className="font-semibold text-green-700 text-2xl">${data?.price}</span>
+            <span className="font-semibold text-green-700 text-2xl">{currency}{data?.price}</span>
             <span className="text-gray-500">• Sold: {data?.sold}</span>
             <span className="text-gray-500">• Likes: ❤️ {data?.likes}</span>
           </div>
@@ -66,9 +69,15 @@ function ProductTitle({HOST_STRIPE, data, description, images} : Props) {
           <button className="mt-4 bg-black cursor-pointer text-white py-3 px-6 rounded-xl text-lg hover:bg-gray-900"
             onClick={() => addToCart({
               id: data.documentId,
+              url: pathname,
               title: data.title,
+              currency:currency || "$",
               price: data.price || null,
-              image: (images[0].url !== undefined ? HOST_STRIPE + images[0].url : ''),
+              oldPrice: data.oldPrice || null,
+              discount: data.discount || null,
+              discountboolean: data.discountboolean || null,
+              inStock: data.inStock || null,
+              image: (images[0].url !== undefined ? `${HOST_STRIPE}/uploads/thumbnail_${images[0].hash}${images[0].ext}` : ''),
               quantity: 1
             })}
           >

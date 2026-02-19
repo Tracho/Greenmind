@@ -8,16 +8,40 @@ query ExampleQuery($filters: ProductFiltersInput) {
     price
     sold
     likes
-    images {
-      width
-      url
-      alternativeText
-      height
-    }
     inStock
     createdAt
     updatedAt
     publishedAt
+    oldPrice
+    discount
+    discountboolean
+     images {
+      width
+      ext
+      hash
+      url
+      alternativeText
+      height
+      formats
+    }
+    colors {
+      name
+    }
+    materials {
+      name
+    }
+      brand {
+      name
+    }
+    specialfeatures {
+      name
+    }
+    styles {
+      name
+    }
+  }
+  globals {
+    currency
   }
 } 
 `

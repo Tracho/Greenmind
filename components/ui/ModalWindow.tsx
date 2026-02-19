@@ -1,6 +1,7 @@
 "use client"
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import SVGclose from '../icons/SVGclose';
 
 type Props = {
   children?: React.ReactNode;
@@ -34,7 +35,7 @@ function ModalWindow({ children, isOpen, onClose }: Props) {
               onClick={onClose}
               className="absolute cursor-pointer top-4 right-4 text-gray-500 hover:text-black"
             >
-              ✕
+              <SVGclose clas="w-6 h-6"/>
             </button>
 
             {children}

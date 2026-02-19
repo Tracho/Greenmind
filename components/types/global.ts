@@ -15,22 +15,22 @@ export type TypeImageFormat = {
 export type TypeImageData = {
   // id?: number;
   // documentId?: string;
-  alternativeText?: string | null | undefined;
+  alternativeText: string | null | undefined;
   // caption?: string | null;
   // createdAt?: string;
   // updatedAt?: string;
   // publishedAt?: string;
-  // ext?: string;
-  // hash?: string;
-  height?: number;
-  width?: number;
+  ext?: string;
+  hash?: string;
+  height: number;
+  width: number;
   // mime?: string;
   // name?: string;
   // previewUrl?: string | null;
   // provider?: string;
   // provider_metadata?: any | null;
   // size?: number;
-  url?: string;
+  url: string;
   link?: string;
 
   // formats?: {
@@ -148,7 +148,7 @@ export type Typeglobals = {
 
 
 export type TypeProducts = {
-  documentId:string;
+  documentId: string;
   images: TypeImageData[];
   likes?: number | null;
   sold?: number | null;
@@ -157,7 +157,7 @@ export type TypeProducts = {
   price: number | null;
   title: string;
   publishedAt: string;
-  imgjson: string;
+  imgjson?: string;
   discount?: null | number;
   discountboolean?: null | boolean;
   oldPrice?: null | number;
@@ -165,8 +165,12 @@ export type TypeProducts = {
 export type TypeProduct = TypeProducts & {
   createdAt: string;
   description: string;
-  documentId: string;
-  updatedAt:string;
+  updatedAt: string;
+  colors:Cate[];
+  materials:Cate[];
+  brand:Brand;
+  specialfeatures:Cate[]
+  styles:Cate[]
 };
 
 export type TypeCardCate = {
@@ -288,5 +292,6 @@ export type TypeProductsResponse = {
 
 export type Brand = { name: string };
 export type Brands = Brand[];
+export type Cate = Brand[];
 export type Color = { name: string };
 export type Colors = Color[];

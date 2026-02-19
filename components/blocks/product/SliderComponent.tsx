@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useState } from "react";
 
 type Props = {
-	images:TypeImageData[];
-  HOST_STRIPE: string;
+	images: TypeImageData[];
+	HOST_STRIPE: string;
 };
 export function SliderComponent({ images, HOST_STRIPE }: Props) {
 	const [index, setIndex] = useState(0);
@@ -43,8 +43,9 @@ export function SliderComponent({ images, HOST_STRIPE }: Props) {
 
 			{/** Dots */}
 			<div className="flex flex-wrap justify-center mt-3 gap-2">
-				{images.map((e, i) => (
-					<span
+				{images.map((e, i) => {
+					const imgUrl = `${HOST_STRIPE}/uploads/thumbnail_${e.hash}${e.ext}`;
+					return (<span
 						key={i}
 						onClick={() => setIndex(i)}
 						onMouseEnter={() => setIndex(i)}
@@ -53,10 +54,10 @@ export function SliderComponent({ images, HOST_STRIPE }: Props) {
 					>
 						<Image
 							className="object-cover w-[75px] h-[75px] rounded-2xl"
-							src={HOST_STRIPE + e.url} alt={e.alternativeText || ""} width={75} height={75}
+							src={imgUrl} alt={e.alternativeText || ""} width={75} height={75}
 							loading="lazy" />
-					</span>
-				))}
+					</span>)
+				})}
 			</div>
 		</div>
 	);

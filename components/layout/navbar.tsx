@@ -107,23 +107,7 @@ function NavBar() {
 
 
 				<ModalWindow isOpen={isModalOpenBasket} onClose={() => setIsModalOpenBasket(false)}>
-					<BasketInfo cart={cart}  setIsModalOpenLogin={setIsModalOpenLogin}/>
-					{cart.map((item) => (
-						<div key={item.id} className="flex items-center gap-2.5 justify-between p-2 border-b">
-							<div>
-								<Image src={item.image} alt={item.title} width={50} height={50} className="object-cover rounded" />
-							</div>
-							<span className="w-full">{item.title} (x{item.quantity})</span>
-							<button onClick={() => removeFromCart(item.id)}>❌</button>
-						</div>
-					))}
-
-					<button
-						className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
-						onClick={() => setIsModalOpenLogin(false)}
-					>
-						Понятно
-					</button>
+					<BasketInfo cart={cart} onClose={() => setIsModalOpenBasket(false)} />
 				</ModalWindow>
 
 				<ModalWindow isOpen={isModalOpenLogin} onClose={() => setIsModalOpenLogin(false)}>

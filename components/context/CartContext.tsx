@@ -6,8 +6,10 @@ import { TypeThisProduct } from "../types/basket";
 
 
 type CartContextType = {
-  cart:  TypeThisProduct[];
+  cart: TypeThisProduct[];
   addToCart: (item: TypeThisProduct) => void;
+  plusQuantity: (id: string | number) => void;
+  minusQuantity: (id: string | number) => void;
   removeFromCart: (id: string | number) => void;
   clearCart: () => void;
 }
@@ -45,8 +47,23 @@ function CartProvider({ children }: { children: React.ReactNode }) {
 
   const clearCart = () => setCart([]);
 
+  const plusQuantity = (productId: string | number) => {
+    setCart((prev) => {
+        return prev.map((item) =>
+          item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+        ); 
+    });
+  };
+  const minusQuantity = (productId: string | number) => {
+    setCart((prev) => {
+        return prev.map((item) =>
+          item.id === productId ? { ...item, quantity: (item.quantity > 1 ? item.quantity - 1 : 1) } : item
+        ); 
+    });
+  };
+
   return (<>
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart , plusQuantity, minusQuantity }}>
       {children}
     </CartContext.Provider>
   </>);

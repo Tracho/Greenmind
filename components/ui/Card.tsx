@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import picture1 from "@/public/images/item1.png";
 
@@ -6,10 +7,12 @@ import Link from "next/link";
 
 import Likes from "@/public/like_gray.svg";
 import Bag from "@/public/bag_gray.svg";
+import SVGCart from "../icons/SVGCart";
+import { useCart } from "../context/CartContext";
 
 type BSPCardProps = TypeBestSellingPlantsItem & TypeImageData & {
   imgUrl?: string | undefined;
-  imgjson?: string | undefined;
+  imgUrlBasket: string; 
   plusClass?: string;
   HOST_STRIPE?: string;
   imgClass?: string;
@@ -18,8 +21,10 @@ type BSPCardProps = TypeBestSellingPlantsItem & TypeImageData & {
 };
 
 function Card({
+  documentId,
   link = "#",
   imgUrl,
+  imgUrlBasket,
   alternativeText,
   price,
   discount = null,
@@ -39,7 +44,7 @@ function Card({
 }: BSPCardProps) {
 
 
-
+  const {addToCart} = useCart();
   return (<>
 
     <div className="w-full bg-white catalog_card">
@@ -53,10 +58,10 @@ function Card({
             height={height}
           />
         </div>
-        <p className="text-base mt-3">{header}</p>
       </Link>
 
-      <div className="flex flex-col justify-between catalog_card_info rounded-2xl text-lg"> 
+      <div className="flex flex-col justify-between catalog_card_info rounded-2xl text-lg bg-white overflow-hidden">
+        <p className="text-base mt-3 card_header">{header}</p>
         <div className="flex flex-wrap justify-between mt-1.5 items-end color_blackgray">
           {
             discountboolean && discount ?
@@ -69,7 +74,7 @@ function Card({
                 </div>
                 {/* <p><span>{currency}</span>{number_price}</p> */}
               </div>
-              : ""  
+              : ""
           }
           <div className="flex w-full justify-between items-center">
             {price ?
@@ -88,6 +93,35 @@ function Card({
             {/* <p>
                 {inStock ? `In Stock: ${inStock}` : "Out of Stock"}
               </p> */}
+          </div>
+
+          <div className="card_ux flex justify-between items-center w-full">
+            {inStock ? (
+              <span className="inline-block text-sm px-3 py-1 bg-green-600 text-white rounded w-fit">
+                In Stock
+              </span>
+            ) : (
+              <span className="inline-block text-sm px-3 py-1 bg-red-600 text-white rounded w-fit">
+                Out of Stock
+              </span>
+            )}
+            <button className="m-2 cursor-pointer text-white py-2 px-2 rounded-md text-lg hover:bg-green-500 outline-green-500 outline-1"
+            onClick={() => addToCart({
+              id: documentId,
+              url: link,
+              title: String(header),
+              currency:currency || "$",
+              price: Number(number_price) || null,
+              oldPrice: oldPrice || null,
+              discount: discount || null,
+              discountboolean: discountboolean || null,
+              inStock:  Boolean(inStock) || null,
+              image: imgUrlBasket,
+              quantity: 1
+            })}
+            >
+              <SVGCart clas="w-[21x] h-[21px]" />
+            </button>
           </div>
         </div>
 

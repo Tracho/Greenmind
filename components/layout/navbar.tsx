@@ -69,8 +69,8 @@ function NavBar() {
 	return (
 		<>
 
-			<div ref={scope} className="relative pb-28">
-				<div className="w-full fixed bg-white  z-50">
+			<div ref={scope} className="relative pb-28 z-100">
+				<div className="w-full fixed bg-white">
 					<div className="mxw_1440  py-5 px-4 sm:py-8 sm:px-6 md:py-10 md:px-24 flex items-center justify-between">
 						{/* LOGO */}
 						<div className="shrink-0 w-[140px] z-50">

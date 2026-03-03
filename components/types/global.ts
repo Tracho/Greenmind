@@ -57,6 +57,7 @@ export type TypeHeaderBlock = {
 
 export type TypeBestSellingPlantsItem = {
   id?: number;
+  documentId: string;
   header?: string;
   price?: string;
   currency?: string;

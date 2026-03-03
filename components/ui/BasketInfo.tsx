@@ -21,7 +21,7 @@ function BasketInfo({ cart, onClose }: Props) {
   // const imgUrl = `${HOST_STRIPE}/uploads/thumbnail_${e.hash}${e.ext}`;
   const totalPrice = useMemo(() => {
     console.log("💰 Пересчитываю сумму..."); // Появится в консоли только при изменении корзины
-    let thisPrice = cart.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0);
+    let thisPrice = cart.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0).toFixed(2);
     let [price, cents] = String(thisPrice).split(".");
     return ({ price, cents });
   }, [cart]); // Зависит ТОЛЬКО от массива корзины

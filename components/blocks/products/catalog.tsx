@@ -16,12 +16,11 @@ function Catalog({ dataProducts, datacurrency, HOST_STRIPE, LoadingCatalog }
         if (card.images && card.images) return (
 
           <Card key={index}
+            documentId={card.documentId}
             link={`/products/${card.slug}`}
-            HOST_STRIPE={HOST_STRIPE}
-            // imgUrl={card.images[0]?.url}
+            HOST_STRIPE={HOST_STRIPE} 
             imgUrl={(card.images[0].url !== undefined ? `${HOST_STRIPE}/uploads/small_${card.images[0].hash}${card.images[0].ext}` : '')}
-            // url={"..."}
-            // imgjson={card.imgjson?.[0] || undefined}
+            imgUrlBasket={(card.images[0].url !== undefined ? `${HOST_STRIPE}/uploads/thumbnail_${card.images[0].hash}${card.images[0].ext}` : '')} 
             alternativeText={card.images[0]?.alternativeText}
             number_price={card.price}
             discount={card.discount}
@@ -33,38 +32,8 @@ function Catalog({ dataProducts, datacurrency, HOST_STRIPE, LoadingCatalog }
             currency={datacurrency}
             header={card.title}
             width={card.images[0]?.width}
-            height={card.images[0]?.height}
-            imgClass="rounded-2xl shrink-0  w-[200px] h-[200px]"
-            subContainClass="max-w-[205px] relative px-3"
-            plusClass="xl:w-1/4 sm:w-1/2 w-full my-5"
-          // plusClass="my-5"
-          />
-
-
-          // <BSP_card key={index}
-          //   link={`/products/${card.slug}`}
-          //   HOST_STRIPE={HOST_STRIPE}
-          //   // imgUrl={card.images[0]?.url}
-          //   imgUrl={(card.images[0].url !== undefined ? `${HOST_STRIPE}/uploads/thumbnail_${card.images[0].hash}${card.images[0].ext}` : '')}
-          //   // url={"..."}
-          //   // imgjson={card.imgjson?.[0] || undefined}
-          //   alternativeText={card.images[0]?.alternativeText}
-          //   number_price={card.price}
-          //   discount={card.discount}
-          //   discountboolean={card.discountboolean}
-          //   oldPrice={card.oldPrice}
-          //   likes={card.likes}
-          //   inStock={card?.inStock}
-          //   sold={card.sold}
-          //   currency={datacurrency}
-          //   header={card.title}
-          //   width={card.images[0]?.width}
-          //   height={card.images[0]?.height}
-          //   imgClass="rounded-2xl shrink-0  w-[200px] h-[200px]"
-          //   subContainClass="max-w-[205px] relative px-3"
-          //   plusClass="xl:w-1/4 sm:w-1/2 w-full my-5"
-          //   // plusClass="my-5"
-          //    />
+            height={card.images[0]?.height} 
+          /> 
         );
       })}
     </div>

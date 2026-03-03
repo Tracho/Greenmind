@@ -43,10 +43,8 @@ type Props = {
   ObjVariables: TypeVariablesOBJ,
 };
 
-function PageProducts({ jsonResponse, ObjVariables }: Props) {
-
-  const getLoccal = localStorage.getItem("databasket");
-
+function PageProducts({ jsonResponse, ObjVariables }: Props) { 
+   
   const [globalData, setGlobalData] = useState<GlobalData>(
     {
       dataProducts: jsonResponse.products_connection?.nodes ?? [],

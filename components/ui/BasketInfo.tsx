@@ -10,6 +10,8 @@ import SVGminus from "../icons/SVGminus";
 import SVGplus from "../icons/SVGplus";
 import { useMemo } from "react";
 
+import ImgBasket from "@/public/images/empty-cart-illustration-perfect-user-interface-uiux-projects_854078-2075.avif"
+
 type Props = {
   cart: TypeThisProduct[];
   onClose: () => void;
@@ -25,7 +27,16 @@ function BasketInfo({ cart, onClose }: Props) {
   }, [cart]); // Зависит ТОЛЬКО от массива корзины
 
   return (<>
-    {cart.map((item) => {
+    {
+      cart.length < 1 &&
+      <Image
+        src={ImgBasket}
+        alt="Cart is empty"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 object-cover rounded-md w-full h-full z-[-1] opacity-70"
+      />
+    }
+
+    {cart.length >= 1 && cart.map((item) => {
       const thisItemPrice = (Number(item.price) * Number(item.quantity)).toFixed(2);
       const [mainPrice, cents] = String(thisItemPrice).split('.');
       const [mainOldPrice, oldCents] = String(item.oldPrice).split('.');
@@ -97,6 +108,14 @@ function BasketInfo({ cart, onClose }: Props) {
       )
     })}
 
+    {
+      cart.length < 1 &&
+      <div className="relative pt-7 pb-7 flex flex-col items-center justify-center min-h-[200px]">
+        <p className="text-[31px]">Cart is empty</p>
+        <p className="text-[21px]">But it's never too late to fix it 😏</p>
+      </div>
+
+    }
     <div className="flex flex-wrap items-center justify-between mt-4 gap-2.5 max-[500px]:justify-center">
       {cart[0] &&
         <span className="text-lg">
@@ -106,13 +125,25 @@ function BasketInfo({ cart, onClose }: Props) {
             {totalPrice.cents && <sup>{totalPrice.cents}</sup>}
           </b>
         </span>
+
       }
-      <button
-        className=" bg-green-500 text-white px-4 py-2 rounded"
-        onClick={onClose}
-      >
-        Proceed to checkout
-      </button>
+      {cart.length >= 1 ?
+        <button
+          className=" bg-green-500 text-white px-4 py-2 rounded cursor-pointer"
+          onClick={onClose}
+        >
+          Proceed to checkout
+        </button>
+        :
+        <div className="flex justify-end w-full">
+          <button
+            className=" bg-red-500 text-white px-4 py-2 rounded cursor-pointer"
+            onClick={onClose}
+          >
+            Close
+          </button>
+        </div>
+      }
     </div>
 
   </>);

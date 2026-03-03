@@ -8,9 +8,10 @@ type Props = {
   isOpen: boolean;      // Нужно знать, открыто ли окно
   onClose: () => void;  // Функция для закрытия
   header?: string;
+  SVGHeader?: React.ReactNode;
 };
 
-function ModalWindow({ children, isOpen, onClose, header }: Props) {
+function ModalWindow({ children, isOpen, onClose, header, SVGHeader }: Props) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -35,7 +36,7 @@ function ModalWindow({ children, isOpen, onClose, header }: Props) {
             {header
               ?
               <div className='flex justify-between mb-2 pb-2 border-b border-gray-400 '>
-                <span className='text-2xl'>{header}</span>
+                <span className='text-2xl flex items-center gap-2'>{SVGHeader}{header}</span>
                 <button
                   onClick={onClose}
                   className="cursor-pointer text-gray-500 hover:text-black"

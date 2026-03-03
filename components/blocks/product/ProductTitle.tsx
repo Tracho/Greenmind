@@ -24,9 +24,11 @@ function ProductTitle({HOST_STRIPE, data, description, images,currency = "$"} : 
 
       {/* Breadcrumbs */}
       <div className="bread_crumbs mb-4">
-        <ul className="flex gap-4 text-sm text-gray-600">
+        <ul className="flex gap-4 text-sm text-gray-600 flex-wrap">
           <li><Link href="/">Home</Link></li>
+          <li>|</li>
           <li><Link href="/products">Products</Link></li>
+          <li>|</li>
           <li><span className="font-semibold truncate block max-w-3xs">{data?.title}</span></li>
         </ul>
       </div>

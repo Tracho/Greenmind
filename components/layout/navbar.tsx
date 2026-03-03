@@ -59,6 +59,13 @@ function NavBar() {
 	const [isModalOpenLogin, setIsModalOpenLogin] = useState(false);
 	const [isModalOpenBasket, setIsModalOpenBasket] = useState(false);
 	const { cart, removeFromCart } = useCart();
+	console.log(cart)
+	const totalQuantity = useMemo(() => { 
+		return cart.reduce((accumulator, item) => {
+			return accumulator + Number(item.quantity);
+		}, 0)
+	},[cart]);
+	 
 	return (
 		<>
 
@@ -95,7 +102,10 @@ function NavBar() {
 
 						{/* RIGHT ICONS & BURGER */}
 						<div className="flex items-center gap-5 md:gap-10 z-50">
-							<button className="cursor-pointer" onClick={() => setIsModalOpenBasket(true)}><SVGCart clas="w-[28px] h-[28px]  md:w-[24px] md:h-[24px]" /></button>
+							<button className="cursor-pointer flex items-end relative" onClick={() => setIsModalOpenBasket(true)}>
+								<SVGCart clas="w-[28px] h-[28px]  md:w-[24px] md:h-[24px]" />
+								{totalQuantity !== 0 ? <b className="text-[10px] text-white bg-red-400 w-4 h-4 rounded-4xl text-center flex items-center justify-center p-1">{totalQuantity}</b> : ""}
+							</button>
 							<button className="cursor-pointer" onClick={() => setIsModalOpenLogin(true)}><SVGPerson clas="w-[28px] h-[28px]  md:w-[24px] md:h-[24px]" /></button>
 							<button className="cursor-pointer md:hidden" onClick={() => setIsOpenMenu(!isOpenMenu)}>
 								<SVGBurgerMenu clas="w-[28px] h-[28px]  md:w-[24px] md:h-[24px]" />
@@ -106,7 +116,7 @@ function NavBar() {
 
 
 
-				<ModalWindow isOpen={isModalOpenBasket} onClose={() => setIsModalOpenBasket(false)} header="Basket">
+				<ModalWindow isOpen={isModalOpenBasket} onClose={() => setIsModalOpenBasket(false)} SVGHeader={<SVGCart clas="w-[28px] h-[28px]  md:w-[24px] md:h-[24px]" />} header="Basket">
 					<BasketInfo cart={cart} onClose={() => setIsModalOpenBasket(false)} />
 				</ModalWindow>
 

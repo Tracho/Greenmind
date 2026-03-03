@@ -19,7 +19,7 @@ function NavBar() {
 	const [scope, animate] = useAnimate()
 	const [isOpenMenu, setIsOpenMenu] = useState(false);
 	const [windowMD, setWindowMD] = useState(0);
-
+	
 	useEffect(() => {
 		setWindowMD(window.innerWidth);
 		const handleResize = () => setWindowMD(window.innerWidth);
@@ -28,7 +28,7 @@ function NavBar() {
 	}, []);
 
 	useEffect(() => {
-		const isMobile = windowMD <= 768;
+		const isMobile = windowMD !== 0 && windowMD <= 768;
 
 		if (isMobile) {
 			animate(
@@ -47,7 +47,7 @@ function NavBar() {
 
 
 	const closeMenu = () => {
-		if (windowMD <= 768) setIsOpenMenu(false);
+		if ( windowMD !== 0 && windowMD <= 768) setIsOpenMenu(false);
 	};
 
 	const pathname = usePathname();
@@ -58,7 +58,7 @@ function NavBar() {
 
 	const [isModalOpenLogin, setIsModalOpenLogin] = useState(false);
 	const [isModalOpenBasket, setIsModalOpenBasket] = useState(false);
-	const { cart, removeFromCart } = useCart();
+	const { cart } = useCart();
 	console.log(cart)
 	const totalQuantity = useMemo(() => { 
 		return cart.reduce((accumulator, item) => {

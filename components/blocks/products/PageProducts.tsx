@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, usePathname } from "next/navigation";
 import { TypeVariablesOBJ } from "@/components/types/Variables"
+import ModalWindow from "@/components/ui/ModalWindow";
 
 type PageProductsProps = {
   data: TypeProductsResponse
@@ -43,8 +44,8 @@ type Props = {
   ObjVariables: TypeVariablesOBJ,
 };
 
-function PageProducts({ jsonResponse, ObjVariables }: Props) { 
-   
+function PageProducts({ jsonResponse, ObjVariables }: Props) {
+
   const [globalData, setGlobalData] = useState<GlobalData>(
     {
       dataProducts: jsonResponse.products_connection?.nodes ?? [],
@@ -56,7 +57,7 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
       dataMaterials: jsonResponse.materials ?? [],
       dataStyles: jsonResponse.styles ?? [],
       dataspecialfeatures: jsonResponse.specialfeatures ?? [],
-      databasket:[],
+      databasket: [],
     }
   );
 
@@ -131,11 +132,17 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
   }, []);
 
 
-
+  // const [isModalFilters, setIsModalFilters] = useState(false);
+ 
   return (<>
     <div className="mxw_1440 px96_15 mx-auto mt-6">
+      {/* <button className="cursor-pointer flex items-end relative" onClick={() => setIsModalFilters(true)}>
+        asdasdasdasdasdasd
+      </button> */}
       <div className="flex flex-nowrap gap-5 ">
-        <div className="w-[300px] shrink-0 bg-slate-100 p-4 rounded-2xl hidden sm:block">
+        {/* <ModalWindow isOpen={isModalFilters} onClose={() => setIsModalFilters(false)} header="Filters">
+        </ModalWindow> */}
+        <div className="w-[300px] shrink-0 bg-slate-100 p-4 rounded-2xl">
           <Product_Filters_Range_Input
             filters={selectedFilters.filters ?? {}}
             maxPrice={globalData.maxPrice}
@@ -157,7 +164,7 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
             }
           />
 
-         
+
           <Category
             header="Categories Brands"
             dataCate={globalData.dataBrands}
@@ -258,7 +265,9 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
               }))
             }
           />
+
         </div>
+
 
         <div className="flex w-full flex-col">
           <Sorting_Bar

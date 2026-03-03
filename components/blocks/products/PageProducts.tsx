@@ -135,7 +135,7 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
   return (<>
     <div className="mxw_1440 px96_15 mx-auto mt-6">
       <div className="flex flex-nowrap gap-5 ">
-        <div className="w-[300px] shrink-0 bg-slate-100 p-4 rounded-2xl">
+        <div className="w-[300px] shrink-0 bg-slate-100 p-4 rounded-2xl hidden sm:block">
           <Product_Filters_Range_Input
             filters={selectedFilters.filters ?? {}}
             maxPrice={globalData.maxPrice}

@@ -132,7 +132,9 @@ body {
 }
 
 .catalog_card {
-  &:hover {
+  position: relative;
+  
+  /* &:hover {
     position: relative;
 
     .catalog_card_info {
@@ -156,12 +158,10 @@ body {
 
   p {
     display: -webkit-box;
-    -webkit-line-clamp: 3;
-    /* Количество строк (например, 3) */
+    -webkit-line-clamp: 3; 
     -webkit-box-orient: vertical;
-    overflow: hidden;
-    /* Скрыть лишний текст */
-  }
+    overflow: hidden; 
+  } */
 }
 
 .hover_center_line {

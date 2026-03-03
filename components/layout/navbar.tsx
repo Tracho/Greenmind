@@ -18,7 +18,7 @@ function NavBar() {
 	// const isInView = useInView(ref);
 	const [scope, animate] = useAnimate()
 	const [isOpenMenu, setIsOpenMenu] = useState(false);
-	const [windowMD, setWindowMD] = useState(window.innerWidth);
+	const [windowMD, setWindowMD] = useState(0);
 
 	useEffect(() => {
 		setWindowMD(window.innerWidth);
@@ -106,7 +106,7 @@ function NavBar() {
 
 
 
-				<ModalWindow isOpen={isModalOpenBasket} onClose={() => setIsModalOpenBasket(false)}>
+				<ModalWindow isOpen={isModalOpenBasket} onClose={() => setIsModalOpenBasket(false)} header="Basket">
 					<BasketInfo cart={cart} onClose={() => setIsModalOpenBasket(false)} />
 				</ModalWindow>
 

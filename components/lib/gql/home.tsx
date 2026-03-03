@@ -179,9 +179,13 @@ query HomePage($pagination: PaginationArg, $productsPagination2: PaginationArg, 
     price
     images(pagination: $pagination) {
       width
+      ext
+      hash
       url
+      alternativeText
       height
-      createdAt
+          alternativeText
+          formats
     }
     likes
     sold

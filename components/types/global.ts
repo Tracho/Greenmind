@@ -30,7 +30,7 @@ export type TypeImageData = {
   // provider?: string;
   // provider_metadata?: any | null;
   // size?: number;
-  url: string;
+  url?: string;
   link?: string;
 
   // formats?: {

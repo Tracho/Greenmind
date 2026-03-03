@@ -1,5 +1,4 @@
 
-"use server";
 import { TypeHomePageResponse, TypeBlocks, TypeProducts, Typeglobals } from "@/components/types/global";
 
 import About_us from "@/components/blocks/About_us";
@@ -41,8 +40,19 @@ export default async function Home() {
       }
     }),
   });
-  const { data }: { data: TypeHomePageResponse } = await res.json();
-  console.log(data)
+  const json = await res.json();
+  
+  if (json.errors) {
+    console.error("❌ Ошибка в GraphQL:", json.errors);
+    // Можно вернуть пустую страницу или обработать ошибку
+  }
+  
+  const data: TypeHomePageResponse = json.data;
+  
+  if (!data || !data.homePage) {
+     return <div>Ошибка загрузки данных</div>;
+  }
+
   // let blocks: TypeBlocks[] = data.HomePage.HomePage;
   let blocks: TypeBlocks[] = data.homePage.HomePage;
   let products: TypeProducts[] = data.products || [];
@@ -72,20 +82,7 @@ export default async function Home() {
         }
         return null;
       }
-      )}
-
-
-
-      {/*       
-      <div>
-        <Button subtitle="See more" >
-          <SVGArrowRight />
-        </Button>
-        <Button subtitle="Explore" classStyle="bg-white" >
-          <SVGArrowRight />
-        </Button>
-      </div>
-     */}
+      )} 
     </>
   );
 }

@@ -7,9 +7,10 @@ type Props = {
   children?: React.ReactNode;
   isOpen: boolean;      // Нужно знать, открыто ли окно
   onClose: () => void;  // Функция для закрытия
+  header?: string;
 };
 
-function ModalWindow({ children, isOpen, onClose }: Props) {
+function ModalWindow({ children, isOpen, onClose, header }: Props) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -28,15 +29,27 @@ function ModalWindow({ children, isOpen, onClose }: Props) {
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            className="relative bg-white p-6 rounded-2xl shadow-xl min-w-[300px] max-w-[90vw] z-[101]"
+            className="relative bg-white p-6 rounded-2xl shadow-xl min-w-[300px] overflow-auto max-h-[90vh] max-w-[90vw] z-[101]"
           >
             {/* Кнопка закрытия (крестик) */}
-            <button 
-              onClick={onClose}
-              className="absolute cursor-pointer top-4 right-4 text-gray-500 hover:text-black"
-            >
-              <SVGclose clas="w-6 h-6"/>
-            </button>
+            {header
+              ?
+              <div className='flex justify-between mb-2 pb-2 border-b border-gray-400 '>
+                <span className='text-2xl'>{header}</span>
+                <button
+                  onClick={onClose}
+                  className="cursor-pointer text-gray-500 hover:text-black"
+                >
+                  <SVGclose clas="w-6 h-6" />
+                </button>
+              </div>
+              : <button
+                onClick={onClose}
+                className="absolute cursor-pointer top-4 right-4 text-gray-500 hover:text-black"
+              >
+                <SVGclose clas="w-6 h-6" />
+              </button>
+            }
 
             {children}
           </motion.div>

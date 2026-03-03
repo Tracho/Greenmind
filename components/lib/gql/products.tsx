@@ -19,10 +19,12 @@ query Products(
       discountboolean
       oldPrice
       images(pagination: $imagesPagination2) {
-        url
-        width
-        height
-        alternativeText
+         width
+      ext
+      hash
+      url
+      alternativeText
+      height
       }
     }
     pageInfo {

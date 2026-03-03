@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { TypeMainCategoriesCycle } from "@/components/types/global";
 import Button from "./Button";

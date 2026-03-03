@@ -91,6 +91,8 @@ function MainClientMessageSlider({ data, HOST_STRIPE }: { data: TypeMainComments
 		}
 	}
 
+
+
 	return (<>
 		<div className="mxw_1440 px96_15 pt-24 mb-12 flex justify-between items-start">
 
@@ -176,4 +178,3 @@ function MainClientMessageSlider({ data, HOST_STRIPE }: { data: TypeMainComments
 export default MainClientMessageSlider;
 
 
- 

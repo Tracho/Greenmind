@@ -8,6 +8,7 @@ import SVGclose from "../icons/SVGclose";
 import SVGtrash from "../icons/SVGtrash";
 import SVGminus from "../icons/SVGminus";
 import SVGplus from "../icons/SVGplus";
+import { useMemo } from "react";
 
 type Props = {
   cart: TypeThisProduct[];
@@ -16,6 +17,12 @@ type Props = {
 function BasketInfo({ cart, onClose }: Props) {
   const { plusQuantity, minusQuantity, removeFromCart } = useCart();
   // const imgUrl = `${HOST_STRIPE}/uploads/thumbnail_${e.hash}${e.ext}`;
+  const totalPrice = useMemo(() => {
+    console.log("💰 Пересчитываю сумму..."); // Появится в консоли только при изменении корзины
+    let thisPrice = cart.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0);
+    let [price, cents] = String(thisPrice).split(".");
+    return ({ price, cents });
+  }, [cart]); // Зависит ТОЛЬКО от массива корзины
 
   return (<>
     {cart.map((item) => {
@@ -30,11 +37,11 @@ function BasketInfo({ cart, onClose }: Props) {
         : 0;
 
       return (
-        <div key={item.id} className="flex flex-col items-center gap-2.5 justify-between p-2 border-b">
+        <div key={item.id} className="flex flex-col items-center gap-2.5 justify-between p-2 border-b border-gray-400">
           <div className="flex w-full flex-col gap-2.5">
             <Link className="flex gap-2.5" href={item.url ?? "#"} target="_blank" rel="noopener noreferrer">
-              <div>
-                <Image src={item.image} alt={item.title} width={100} height={100} className="object-cover rounded-md" />
+              <div className="flex shrink-0 w-[100px] h-[100px]">
+                <Image src={item.image} alt={item.title} width={100} height={100} className="object-cover rounded-md w-full h-full" />
               </div>
               <span className="w-full flex text-sm">{item.title}</span>
             </Link>
@@ -81,7 +88,7 @@ function BasketInfo({ cart, onClose }: Props) {
               </div>
 
               <button className="cursor-pointer" onClick={() => removeFromCart(item.id)}>
-                <SVGclose clas="w-6 h-6" />
+                <SVGtrash clas="w-6 h-6" />
               </button>
             </div>
 
@@ -90,12 +97,24 @@ function BasketInfo({ cart, onClose }: Props) {
       )
     })}
 
-    <button
-      className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
-      onClick={onClose}
-    >
-      Понятно
-    </button>
+    <div className="flex flex-wrap items-center justify-between mt-4 gap-2.5 max-[500px]:justify-center">
+      {cart[0] &&
+        <span className="text-lg">
+          Total price:
+          <b className="font-medium ms-1">
+            {cart[0].currency}{totalPrice.price}{totalPrice.cents && "."}
+            {totalPrice.cents && <sup>{totalPrice.cents}</sup>}
+          </b>
+        </span>
+      }
+      <button
+        className=" bg-green-500 text-white px-4 py-2 rounded"
+        onClick={onClose}
+      >
+        Proceed to checkout
+      </button>
+    </div>
+
   </>);
 }
 

@@ -12,9 +12,9 @@ import { TypeProducts, TypeBestSellingPlants, Typeglobals } from "@/components/t
 
 function Best_Selling_Plants({ HOST_STRIPE, data, products, globals }:
   { HOST_STRIPE: string, data: TypeBestSellingPlants, products: TypeProducts[], globals: Typeglobals | null }) {
-  let [MyData, SetMyData] = useState(data);
-  const [Myproducts, SetMyProducts] = useState<TypeProducts[]>(products);
-
+  // let [MyData, SetMyData] = useState(data);
+  // const [Myproducts, SetMyProducts] = useState<TypeProducts[]>(products);
+    console.log(products)
   return (<>
     <div className="mxw_1440 px96_15 py-24">
       <div className="flex flex-wrap justify-between w-full align-top">
@@ -22,8 +22,8 @@ function Best_Selling_Plants({ HOST_STRIPE, data, products, globals }:
 
         <div className="xl:w-1/4 sm:w-1/2 w-full my-5 flex lg:items-start lg:justify-start justify-center items-center">
           <div className="xl:max-w-[256px] max-w-[300px]">
-            <h2 className="text-3xl font-bold mb-3">{MyData.header}</h2>
-            <p className="color_blackgray text-lg mb-6">{MyData.subtitle}</p>
+            <h2 className="text-3xl font-bold mb-3">{data.header}</h2>
+            <p className="color_blackgray text-lg mb-6">{data.subtitle}</p>
             <Button subtitle="See more" >
               <SVGArrowRight />
             </Button>
@@ -31,11 +31,11 @@ function Best_Selling_Plants({ HOST_STRIPE, data, products, globals }:
         </div>
 
 
-        {MyData.UseCycle === true && MyData.cycle.map((card, index) => {
+        {data.UseCycle === true && data.cycle.map((card, index) => {
           if (card.img) return (
             <BSP_card key={index}
               HOST_STRIPE={HOST_STRIPE}
-              imgUrl={card.img.url}
+              imgUrl={(card.img.hash !== undefined ? `${HOST_STRIPE}/uploads/thumbnail_${card.img.hash}${card.img.ext}` : `${HOST_STRIPE}${card.img.url}`)}
               alternativeText={card.img.alternativeText}
               price={card.price}
               currency={card.currency}
@@ -47,12 +47,12 @@ function Best_Selling_Plants({ HOST_STRIPE, data, products, globals }:
               imgClass="rounded-2xl w-full object-cover max-w-[300px] h-[100vh] max-h-[360px]" />
           );
         })}
-        {MyData.UseCycle === null || MyData.UseCycle === false && Myproducts.map((card, index) => {
+        {data.UseCycle === null || data.UseCycle === false && products.map((card, index) => {
           if (card.images && card.images) return (
             <BSP_card key={index}
               link={`/products/${card.slug}`}
               HOST_STRIPE={HOST_STRIPE}
-              imgUrl={card.images[0]?.url}
+              imgUrl={(card.images[0].hash !== undefined ? `${HOST_STRIPE}/uploads/small_${card.images[0].hash}${card.images[0].ext}` : `${HOST_STRIPE}${card.images[0].url}`)}
               alternativeText={card.images[0]?.alternativeText}
               number_price={card.price}
               currency={globals?.currency || "$"}

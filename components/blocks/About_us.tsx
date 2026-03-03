@@ -10,7 +10,7 @@ import H2Header from "../ui/h2Header";
 
 function About_us({ HOST_STRIPE, data }: { HOST_STRIPE?: string, data?: TypeAboutUs }) {
   let [MyData, SetMyData] = useState<TypeAboutUs | undefined>(data);
-  let ArrSvg: JSX.Element[] = [<SVGflowerpot />, <SVGbox />, <SVGcall />];
+  let ArrSvg:  React.ReactNode[] = [<SVGflowerpot />, <SVGbox />, <SVGcall />];
 
   return (<>
     {

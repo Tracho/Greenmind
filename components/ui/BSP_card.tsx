@@ -14,6 +14,7 @@ type BSPCardProps = TypeBestSellingPlantsItem & TypeImageData & {
   HOST_STRIPE?: string;
   imgClass?: string;
   subContainClass?: string;
+  // url: string;
 };
 
 function BSP_card({
@@ -44,7 +45,7 @@ function BSP_card({
       <div className={`${subContainClass}`}>
         <Link href={link}>
           <div className="max-w-[300] max-h-[360] flex justify-center items-center">
-            <Image className={imgClass} src={(imgUrl ? HOST_STRIPE + imgUrl : picture1)} alt={alternativeText || "Image"} width={width} height={height} />
+            <Image className={imgClass} src={(imgUrl ? imgUrl : picture1)} alt={alternativeText || "Image"} width={width} height={height} />
           </div>
           <div className="flex flex-col justify-between catalog_card_info bg-white rounded-2xl text-lg py-3">
             <p className="text-base">{header}</p>

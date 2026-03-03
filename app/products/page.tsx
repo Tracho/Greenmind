@@ -16,13 +16,13 @@ import { TypeVariablesOBJ } from "@/components/types/Variables"
 
 const GQL = process.env.NEXT_PUBLIC_HOST_GQL as string;
 
-async function Product({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+async function Product(props: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
+  // Теперь await сработает корректно для TS
+  const queryParams = await props.searchParams; 
   
-  let queryParams = await searchParams;
-
-
-  const ObjVariables: TypeVariablesOBJ = ParseUrlQuery(queryParams);
-   
+  // Твой остальной код...
+  // const ObjVariables: TypeVariablesOBJ = ParseUrlQuery(queryParams); 
+   const ObjVariables = ParseUrlQuery(queryParams as Record<string, string>);
   const res = await fetch(GQL, {
     method: "POST",
     headers: {

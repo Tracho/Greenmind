@@ -16,7 +16,9 @@ function Catalog({dataProducts, datacurrency, HOST_STRIPE , LoadingCatalog}
           <BSP_card key={index}
             link={`/products/${card.slug}`}
             HOST_STRIPE={HOST_STRIPE}
-            imgUrl={card.images[0]?.url}
+            // imgUrl={card.images[0]?.url}
+            imgUrl={(card.images[0].url !== undefined ? `${HOST_STRIPE}/uploads/thumbnail_${card.images[0].hash}${card.images[0].ext}` : '')}
+            // url={"..."}
             // imgjson={card.imgjson?.[0] || undefined}
             alternativeText={card.images[0]?.alternativeText}
             number_price={card.price}

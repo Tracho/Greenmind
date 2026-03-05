@@ -15,17 +15,17 @@ type Props = {
 
 function Filters_container({ selectedFilters, globalData, setSelectedFilters, toggleModal, isFiltersOpen }: Props) {
   return (<>
-   
+
     <motion.div
       animate={{
         left: isFiltersOpen ? "50%" : "-50%",
       }}
-      transition={{ duration: 0.5, ease: isFiltersOpen ?  "anticipate" : "easeOut" }}
-      className="w-[300px] shrink-0 bg-slate-100 p-4 rounded-2xl filters_container">
-        
-      <div className="flex items-center justify-center"> 
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="w-[300px] shrink-0 bg-slate-100 p-4 rounded filters_container">
+
+      <div className="flex items-center justify-center">
         <span className="text-[31px] w-full text-center">Filters</span>
-        <button className="absolute right-4 rounded-md block cursor-pointer md:hidden text-gray-500 hover:text-black" onClick={toggleModal}><SVGclose clas="w-8 h-8" /></button> 
+        <button className="absolute right-4 rounded block cursor-pointer md:hidden text-gray-500 hover:text-black" onClick={toggleModal}><SVGclose clas="w-8 h-8" /></button>
       </div>
 
 
@@ -152,6 +152,9 @@ function Filters_container({ selectedFilters, globalData, setSelectedFilters, to
         }
       />
 
+      <div className="w-full flex justify-end">
+        <button onClick={toggleModal} className=" bg-red-500 text-white px-4 py-2 rounded cursor-pointer">Close</button>
+      </div>
     </motion.div>
   </>);
 }

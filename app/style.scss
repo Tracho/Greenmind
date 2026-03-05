@@ -135,7 +135,7 @@ $CardBrColor:#fff;
   position: relative;
 
   &:hover {
-    z-index: 50;
+    z-index: 20;
     outline: $CardwBr solid $CardBrColor;
 
     // border: 10px solid #000;
@@ -245,25 +245,35 @@ $CardBrColor:#fff;
 
 
 
+@mixin menu {
+  width      : 100%;
+  position   : fixed;
+  height     : 100%;
+  z-index    : 50;
+  overflow-y : auto;
+  height     : 100vh;
+  padding-top: 100px;
+  top        : 0%;
+  left       : -50%;
+  transform  : translate(-50%, 0%);
+}
 
 .filters_container {
   @media (max-width:786px) {
-    width      : 100%;
-    position   : fixed;
-    height     : 100%;
-    z-index    : 50;
-    overflow-y : auto;
-    height     : 100vh;
-    padding-top: 100px;
-    top        : 0%;
-    left       : -50%;
-    transform  : translate(-50%, 0%) // display: none;
+    @include menu;
+  }
+}
+.burger_container {
+  @media (max-width:786px) {
+    @include menu;
+      padding-top: initial; 
   }
 }
 
-.AnimAll0_2{
-   transition: all ease 0.2s;
-  &:hover{
+.AnimAll0_2 {
+  transition: all ease 0.2s;
+
+  &:hover {
     transition: all ease 0.2s;
   }
 }

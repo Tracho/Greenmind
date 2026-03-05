@@ -156,7 +156,7 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
                 });
               }}
             > 
-              <button className="text-black px-2 cursor-pointer outline-white bg-white outline-2 rounded-md  hover:bg-amber-50 AnimAll0_2 flex md:hidden" onClick={() => setFiltersOpen((prev) => !prev)}>
+              <button className="text-black px-2 cursor-pointer outline-white bg-white outline-2 rounded  hover:bg-amber-50 AnimAll0_2 flex md:hidden" onClick={() => setFiltersOpen((prev) => !prev)}>
                 <SVGFilters clas="w-8 h-8" />
               </button>
             </Sorting_Bar>

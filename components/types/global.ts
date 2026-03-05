@@ -296,3 +296,21 @@ export type Brands = Brand[];
 export type Cate = Brand[];
 export type Color = { name: string };
 export type Colors = Color[];
+
+export type GlobalData = {
+  dataProducts: TypeProducts[];
+  currency: string | null;
+  maxPrice: number;
+  dataColors: Colors;
+  dataBrands: Brands;
+  dataMaterials: Brands;
+  dataStyles: Brands;
+  dataspecialfeatures: Brands;
+  databasket: string[],
+  pageInfo: {
+    pageSize: number,
+    pageCount: number,
+    total: number,
+    page: number
+  }
+};

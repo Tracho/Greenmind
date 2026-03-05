@@ -1,6 +1,3 @@
-@import "tailwindcss";
-
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -166,7 +163,8 @@ $CardBrColor:#fff;
       -webkit-line-clamp: none;
       overflow          : visible;
     }
-    .card_ux{
+
+    .card_ux {
       display: flex;
     }
   }
@@ -242,5 +240,30 @@ $CardBrColor:#fff;
     display       : flex;
     flex-direction: column;
     width         : 100%;
+  }
+}
+
+
+
+
+.filters_container {
+  @media (max-width:786px) {
+    width      : 100%;
+    position   : fixed;
+    height     : 100%;
+    z-index    : 50;
+    overflow-y : auto;
+    height     : 100vh;
+    padding-top: 100px;
+    top        : 0%;
+    left       : -50%;
+    transform  : translate(-50%, 0%) // display: none;
+  }
+}
+
+.AnimAll0_2{
+   transition: all ease 0.2s;
+  &:hover{
+    transition: all ease 0.2s;
   }
 }

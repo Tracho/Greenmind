@@ -8,12 +8,14 @@ import Category from "./category";
 import Sorting_Bar from "./Sorting_Bar";
 import ProductPagination from "./ProductPagination";
 import Catalog from "./catalog";
-import { TypeProductsResponse, Colors, TypeProducts, Typeglobals, TypeFiltresQueryParams, TypeFiltresQuerySubParams, TypeProdictsVariables, Brands } from "@/components/types/global";
+import { TypeProductsResponse, Colors, TypeProducts, Typeglobals, TypeFiltresQueryParams, GlobalData, TypeProdictsVariables, Brands } from "@/components/types/global";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, usePathname } from "next/navigation";
 import { TypeVariablesOBJ } from "@/components/types/Variables"
 import ModalWindow from "@/components/ui/ModalWindow";
+import Filters_container from "./filters_container";
+import SVGFilters from "@/components/icons/SVGFilters";
 
 type PageProductsProps = {
   data: TypeProductsResponse
@@ -21,23 +23,6 @@ type PageProductsProps = {
 
 const HOST_STRIPE = process.env.NEXT_PUBLIC_HOST_STRAPI as string;
 const GQL = process.env.NEXT_PUBLIC_HOST_GQL as string;
-type GlobalData = {
-  dataProducts: TypeProducts[];
-  currency: string | null;
-  maxPrice: number;
-  dataColors: Colors;
-  dataBrands: Brands;
-  dataMaterials: Brands;
-  dataStyles: Brands;
-  dataspecialfeatures: Brands;
-  databasket: string[],
-  pageInfo: {
-    pageSize: number,
-    pageCount: number,
-    total: number,
-    page: number
-  }
-};
 
 type Props = {
   jsonResponse: TypeProductsResponse,
@@ -132,169 +117,51 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
   }, []);
 
 
-  // const [isModalFilters, setIsModalFilters] = useState(false);
- 
+  const [isFiltersOpen, setFiltersOpen] = useState(false);
+  console.log(isFiltersOpen)
   return (<>
-    <div className="mxw_1440 px96_15 mx-auto mt-6">
-      {/* <button className="cursor-pointer flex items-end relative" onClick={() => setIsModalFilters(true)}>
-        asdasdasdasdasdasd
-      </button> */}
-      <div className="flex flex-nowrap gap-5 ">
-        {/* <ModalWindow isOpen={isModalFilters} onClose={() => setIsModalFilters(false)} header="Filters">
-        </ModalWindow> */}
-        <div className="w-[300px] shrink-0 bg-slate-100 p-4 rounded-2xl">
-          <Product_Filters_Range_Input
-            filters={selectedFilters.filters ?? {}}
-            maxPrice={globalData.maxPrice}
-            onChange={(ARGgte, ARGlte) =>
-              setSelectedFilters(prev => ({
-                ...prev,
-                pagination: {
-                  ...prev.pagination,
-                  page: 1
-                },
-                filters: {
-                  ...prev.filters,
-                  price: {
-                    gte: String(ARGgte),
-                    lte: String(ARGlte),
-                  },
-                },
-              }))
-            }
-          />
+    <div className="mxw_1440 px96_15 mx-auto pt-6">
 
+      <div className="flex flex-nowrap gap-5 relative z-10">
 
-          <Category
-            header="Categories Brands"
-            dataCate={globalData.dataBrands}
-            selectedCate={selectedFilters.filters.brand.name.in}
-            onChange={(brands) =>
-              setSelectedFilters(prev => ({
-                ...prev,
-                pagination: {
-                  ...prev.pagination,
-                  page: 1
-                },
-                filters: {
-                  ...prev.filters,
-                  brand: {
-                    name: { in: brands }
-                  }
-                }
-              }))
-            }
-          />
-          <Category
-            header="Categories Colors"
-            dataCate={globalData.dataColors}
-            selectedCate={selectedFilters.filters.colors.name.in}
-            onChange={(colors) =>
-              setSelectedFilters(prev => ({
-                ...prev,
-                pagination: {
-                  ...prev.pagination,
-                  page: 1
-                },
-                filters: {
-                  ...prev.filters,
-                  colors: {
-                    name: { in: colors },
-                  },
-                },
-              }))
-            }
-          />
-          <Category
-            header="Categories Materials"
-            dataCate={globalData.dataMaterials}
-            selectedCate={selectedFilters.filters.materials.name.in}
-            onChange={(materials) =>
-              setSelectedFilters(prev => ({
-                ...prev,
-                pagination: {
-                  ...prev.pagination,
-                  page: 1
-                },
-                filters: {
-                  ...prev.filters,
-                  materials: {
-                    name: { in: materials },
-                  },
-                },
-              }))
-            }
-          />
-          <Category
-            header="Categories styles"
-            dataCate={globalData.dataStyles}
-            selectedCate={selectedFilters.filters.styles.name.in}
-            onChange={(styles) =>
-              setSelectedFilters(prev => ({
-                ...prev,
-                pagination: {
-                  ...prev.pagination,
-                  page: 1
-                },
-                filters: {
-                  ...prev.filters,
-                  styles: {
-                    name: { in: styles },
-                  },
-                },
-              }))
-            }
-          />
-          <Category
-            header="Categories special features"
-            dataCate={globalData.dataspecialfeatures}
-            selectedCate={selectedFilters.filters.specialfeatures.name.in}
-            onChange={(specialfeatures) =>
-              setSelectedFilters(prev => ({
-                ...prev,
-                pagination: {
-                  ...prev.pagination,
-                  page: 1
-                },
-                filters: {
-                  ...prev.filters,
-                  specialfeatures: {
-                    name: { in: specialfeatures },
-                  },
-                },
-              }))
-            }
-          />
-
-        </div>
-
+        <Filters_container
+          selectedFilters={selectedFilters} globalData={globalData} setSelectedFilters={setSelectedFilters}
+          toggleModal={() => setFiltersOpen((prev) => !prev)} isFiltersOpen={isFiltersOpen}
+        />
 
         <div className="flex w-full flex-col">
-          <Sorting_Bar
-            querySort={selectedFilters.sort}
-            onChange={(ARGsort: string) => {
-              setSelectedFilters(prev => {
-                // 1. Получаем имя ключа (например, "price") и значение ("asc" или "default")
-                const [incomingKey, incomingValue] = ARGsort.split(":");
+          <div className="flex items-start">
+            <Sorting_Bar
+              querySort={selectedFilters.sort}
+              onChange={(ARGsort: string) => {
+                setSelectedFilters(prev => {
+                  // 1. Получаем имя ключа (например, "price") и значение ("asc" или "default")
+                  const [incomingKey, incomingValue] = ARGsort.split(":");
 
-                // 2. Убираем из старого массива все, что связано с этим ключом
-                const filteredSort = (prev.sort ?? []).filter(item => {
-                  const [existingKey] = item.split(":");
-                  return existingKey !== incomingKey;
+                  // 2. Убираем из старого массива все, что связано с этим ключом
+                  const filteredSort = (prev.sort ?? []).filter(item => {
+                    const [existingKey] = item.split(":");
+                    return existingKey !== incomingKey;
+                  });
+
+                  // 3. Если значение не "default", добавляем новый параметр в массив
+                  const newSort = incomingValue === "default"
+                    ? filteredSort
+                    : [...filteredSort, ARGsort];
+
+                  return {
+                    ...prev,
+                    sort: newSort
+                  };
                 });
+              }}
+            > 
+              <button className="text-black px-2 cursor-pointer outline-white bg-white outline-2 rounded-md  hover:bg-amber-50 AnimAll0_2 flex md:hidden" onClick={() => setFiltersOpen((prev) => !prev)}>
+                <SVGFilters clas="w-8 h-8" />
+              </button>
+            </Sorting_Bar>
 
-                // 3. Если значение не "default", добавляем новый параметр в массив
-                const newSort = incomingValue === "default"
-                  ? filteredSort
-                  : [...filteredSort, ARGsort];
-
-                return {
-                  ...prev,
-                  sort: newSort
-                };
-              });
-            }}
-          />
+          </div>
 
           {globalData.dataProducts.length !== 0 ?
             <Catalog LoadingCatalog={isLoading} dataProducts={globalData.dataProducts} datacurrency={globalData.currency ?? "$"} HOST_STRIPE={HOST_STRIPE} />

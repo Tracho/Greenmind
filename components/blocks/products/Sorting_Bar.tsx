@@ -5,8 +5,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 type Props = {
   querySort: string[] | null,
-  onChange: (sort: string) => void
-  onClick?: (sort: string) => void
+  onChange: (sort: string) => void,
+  onClick?: (sort: string) => void,
+  children?: React.ReactNode,
 };
 
 type TypeSelectedOptionMini = {
@@ -29,7 +30,7 @@ type TypeSelectedOption = {
 type SelectedKeys = keyof TypeSelectedOption;
 type SelectedOptionMiniKeys = keyof TypeSelectedOptionMini;
 
-function Sorting_Bar({ querySort, onChange }: Props) {
+function Sorting_Bar({ querySort, onChange, children }: Props) {
   const selectedOption: TypeSelectedOption = {
     likes: { title: 'Sort by Likes', title_default: 'Sort by Likes', title_desc: 'More Likes', title_asc: 'Less Likes', default: 'likes:default', desc: `likes:desc`, asc: `likes:asc` },
     sold: { title: 'Sort by Sales', title_default: 'Sort by Sales', title_desc: 'More Sales', title_asc: 'Less Sales', default: 'sold:default', desc: `sold:desc`, asc: `sold:asc` },
@@ -77,7 +78,7 @@ function Sorting_Bar({ querySort, onChange }: Props) {
     // Убираем слушатель при размонтировании
     return () => window.removeEventListener("mousedown", handleClickOutside);
   }, []);
- 
+
   useEffect(() => {
     const keys = Object.keys(selectedOption);
     keys.forEach((key) => {
@@ -101,13 +102,13 @@ function Sorting_Bar({ querySort, onChange }: Props) {
   }, [activeMenu, animate]);
 
   return (
-    <div className="bg_aquamarine p-4 rounded-2xl mb-5" ref={containerRef}>
+    <div className="bg_aquamarine p-4 rounded-2xl mb-5 flex items-start" ref={containerRef}>
       <div className="flex flex-wrap items-center gap-4" ref={scope}>
         {(Object.keys(selectedOption) as Array<SelectedKeys>).map((key) => {
           let thisElem = selectedOption[key];
           let currentTitle = `title_${currentValues[key].split(":")[1]}` as SelectedOptionMiniKeys;
           return (
-            <div data-key={key} key={key} className="relative min-w-[160px]">
+            <div data-key={key} key={key} className="relative min-w-[140px]">
               {/* Кастомный селект */}
               <div
                 onClick={() => toggleMenu(key)}
@@ -146,7 +147,9 @@ function Sorting_Bar({ querySort, onChange }: Props) {
             </div>
           )
         })}
+
       </div>
+      {children}
     </div>
   );
 }

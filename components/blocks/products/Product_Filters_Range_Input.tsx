@@ -42,9 +42,9 @@ function Product_Filters_Range_Input({ filters, maxPrice, onChange }: Props) {
   }
   return (
 
-    <div className="w-full max-w-md mx-auto my-6">
+    <div className="w-full md:max-w-md mx-auto my-6">
       <label className="block mb-4 text-sm font-medium text-gray-900">
-        <div className="flex items-center lg:flex-nowrap flex-wrap">
+        <div className="flex items-center  flex-nowrap">
           <span className="text-lg mr-2">Price:</span>
           <div className="flex items-center">
 

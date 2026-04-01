@@ -1,11 +1,17 @@
 # GREENMIND 🌿
+
 This is a Next.js pet project where I experimented with building a small e-commerce-like application using modern technologies.
+
+---
 
 ## 🚀 Getting Started
 
 ### 1. Start the Frontend (Next.js)
 
 Run the development server:
+
+```bash
+npm run dev
 # or
 yarn dev
 # or
@@ -16,7 +22,9 @@ bun dev
 Open http://localhost:3000 with your browser to see the result.
 2. Start the Backend (Strapi) 
 To run the CMS, navigate to the Strapi directory and start the development server: 
+ 
 cd .\my-strapi\
+ 
 npm run dev
 
 Development

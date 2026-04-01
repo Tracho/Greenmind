@@ -174,9 +174,17 @@ query HomePage($pagination: PaginationArg, $productsPagination2: PaginationArg, 
     }
   }
   products(pagination: $productsPagination2, sort: $sort) {
-    slug
-    title
-    price
+      documentId   
+      title
+      slug
+      price
+      likes
+      sold
+      inStock
+      publishedAt
+      discount
+      discountboolean
+      oldPrice
     images(pagination: $pagination) {
       width
       ext
@@ -186,9 +194,7 @@ query HomePage($pagination: PaginationArg, $productsPagination2: PaginationArg, 
       height
           alternativeText
           formats
-    }
-    likes
-    sold
+    } 
   }
   globals {
     currency

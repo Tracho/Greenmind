@@ -21,7 +21,7 @@ function Filters_container({ selectedFilters, globalData, setSelectedFilters, to
         left: isFiltersOpen ? "50%" : "-50%",
       }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="w-[300px] shrink-0 bg-slate-100 p-4 rounded filters_container">
+      className="w-[275px] shrink-0 bg-slate-100 p-4 rounded filters_container">
 
       <div className="flex items-center justify-center">
         <span className="text-[31px] w-full text-center">Filters</span>
@@ -153,7 +153,7 @@ function Filters_container({ selectedFilters, globalData, setSelectedFilters, to
       />
 
       <div className="w-full flex justify-end">
-        <button onClick={toggleModal} className=" bg-red-500 text-white px-4 py-2 rounded cursor-pointer">Close</button>
+        <button onClick={toggleModal} className=" bg-red-500 text-white px-4 py-2 rounded  block cursor-pointer md:hidden">Close</button>
       </div>
     </motion.div>
   </>);

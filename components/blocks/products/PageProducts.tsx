@@ -120,7 +120,7 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
   const [isFiltersOpen, setFiltersOpen] = useState(false);
   console.log(isFiltersOpen)
   return (<>
-    <div className="mxw_1440 px96_15 mx-auto pt-6">
+    <div className="mxw_1440 px96_15 pb-24 mx-auto pt-6">
 
       <div className="flex flex-nowrap gap-5 relative z-10">
 
@@ -155,7 +155,7 @@ function PageProducts({ jsonResponse, ObjVariables }: Props) {
                   };
                 });
               }}
-            > 
+            >
               <button className="text-black px-2 cursor-pointer outline-white bg-white outline-2 rounded  hover:bg-amber-50 AnimAll0_2 flex md:hidden" onClick={() => setFiltersOpen((prev) => !prev)}>
                 <SVGFilters clas="w-8 h-8" />
               </button>

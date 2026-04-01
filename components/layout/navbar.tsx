@@ -24,7 +24,8 @@ function NavBar() {
 	const pathname = usePathname();
 	const getActiveClass = (href: string) => {
 		const isActive = href === "/" ? pathname === href : pathname.startsWith(href);
-		return isActive ? "font-medium text-black" : "font-normal text-zinc-900";
+		let styleHover = "underline decoration-transparent hover:text-black hover:decoration-current transition-all duration-300"
+		return isActive ? `${styleHover} font-medium text-black` : `${styleHover} font-normal text-zinc-900`;
 	};
 	useEffect(() => {
 		setIsOpenBurger(false);
@@ -68,7 +69,7 @@ function NavBar() {
 
 								<ul className="flex flex-col md:flex-row items-center gap-8 md:gap-10 text-2xl md:text-lg">
 									<li>
-										<Link className={getActiveClass("/")} href="/">
+										<Link className={getActiveClass("/")} href="/" >
 											Home
 										</Link>
 									</li>

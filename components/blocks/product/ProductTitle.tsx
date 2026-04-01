@@ -18,16 +18,16 @@ type Props = {
 function ProductTitle({HOST_STRIPE, data, description, images,currency = "$"} : Props) {
   const pathname = usePathname()
   const { addToCart } = useCart();
-
+ 
   return (<>
-    <div className="mxw_1440 px96_15 mx-auto mt-6">
+    <div className="mxw_1440 px96_15 pb-24 mx-auto mt-6">
 
       {/* Breadcrumbs */}
       <div className="bread_crumbs mb-4">
         <ul className="flex gap-4 text-sm text-gray-600 flex-wrap">
-          <li><Link href="/">Home</Link></li>
+          <li><Link className="underline decoration-transparent hover:text-black hover:decoration-current transition-all duration-300" href="/">Home</Link></li>
           <li>|</li>
-          <li><Link href="/products">Products</Link></li>
+          <li><Link className="underline decoration-transparent hover:text-black hover:decoration-current transition-all duration-300" href="/products">Products</Link></li>
           <li>|</li>
           <li><span className="font-semibold truncate block max-w-3xs">{data?.title}</span></li>
         </ul>

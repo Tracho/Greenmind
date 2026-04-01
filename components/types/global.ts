@@ -187,7 +187,7 @@ export type TypeCardCate = {
 export type TypeInfoCard = {
   svg: React.ReactNode;
   header: string;
-  subtitle: string;
+  subtitle: null | string;
 };
 
 export type TypeH2Header = {
@@ -314,3 +314,4 @@ export type GlobalData = {
     page: number
   }
 };
+ 

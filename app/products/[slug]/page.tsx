@@ -1,4 +1,5 @@
 import ProductTitle from "@/components/blocks/product/ProductTitle";
+import Footer from "@/components/layout/footer";
 import NavBar from "@/components/layout/navbar";
 import { query } from "@/components/lib/gql/product";
 import { TypeProduct } from "@/components/types/global";
@@ -42,6 +43,7 @@ async function Product({ params, }: { params: Promise<{ slug: string }> }) {
   return (<>
     <NavBar />
     <ProductTitle data={data} currency={currency} images={images} description={description} HOST_STRIPE={HOST_STRIPE}/>
+    <Footer/>
   </>);
 }
 

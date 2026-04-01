@@ -47,7 +47,7 @@ function Card({
   const {addToCart} = useCart();
   return (<>
 
-    <div className="w-full bg-white catalog_card">
+    <div className="w-full bg-white catalog_card max-w-[300px] h-[375px]">
       <Link href={link} className="block w-full">
         <div className="w-full h-[225px] sm:h-[225px] flex justify-center items-center relative rounded-2xl z-10 overflow-hidden">
           <Image

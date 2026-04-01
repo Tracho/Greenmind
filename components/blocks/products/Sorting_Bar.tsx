@@ -102,7 +102,7 @@ function Sorting_Bar({ querySort, onChange, children }: Props) {
   }, [activeMenu, animate]);
 
   return (
-    <div className="bg_aquamarine p-4 rounded-2xl mb-5 flex items-start" ref={containerRef}>
+    <div className="bg-slate-100 w-full p-4 rounded mb-5 flex items-start" ref={containerRef}>
       <div className="flex flex-wrap items-center gap-4" ref={scope}>
         {(Object.keys(selectedOption) as Array<SelectedKeys>).map((key) => {
           let thisElem = selectedOption[key];

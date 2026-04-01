@@ -32,7 +32,7 @@ function ProductPagination({ thisPage = 1, pageCount = 1, onChange }: Props) {
     .sort((a, b) => a - b);
 
   return (
-    <div className="flex items-center justify-center gap-2">
+    <div className="flex items-center justify-center mt-12 gap-2">
       {visiblePages.map((page, index) => {
         const prev = visiblePages[index - 1];
         const showDots = prev && page - prev > 1;

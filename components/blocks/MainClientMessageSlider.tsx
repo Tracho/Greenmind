@@ -6,14 +6,15 @@ import { TypeMainComments } from "@/components/types/global";
 import SVGQuotes from "../icons/SVGQuotes";
 import SVGStar from "../icons/SVGStar";
 import Image from "next/image";
+import Anim_left_to_right from "../animation/Anim_left_to_right";
+import { HomePageElement } from "../types/homePage";
 
-function MainClientMessageSlider({ data, HOST_STRIPE }: { data: TypeMainComments, HOST_STRIPE: string }) {
+function MainClientMessageSlider({ data, HOST_STRIPE }: { data: HomePageElement, HOST_STRIPE: string }) {
 	const ref = useRef(null);
-	const isInView = useInView(ref);
- 
+	const isInView = useInView(ref); 
 
-	let [MyData, SetMyData] = useState<TypeMainComments>(data);
-	let [timer, SetTimer] = useState<number>(2000);
+	let MyData = data;
+	let timer = 2000;
 	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
 
@@ -115,14 +116,16 @@ function MainClientMessageSlider({ data, HOST_STRIPE }: { data: TypeMainComments
 
 	return (<>
 		<div ref={ref} className="mxw_1440 px96_15 pt-24 mb-12 flex justify-between items-start flex-wrap sm:flex-nowrap gap-6">
-
+		
 			{MyData?.header &&
-				<div className="max-w-[457]">
-					<h2 className="text-3xl font-bold">{MyData.header}</h2>
+				<div className="max-w-[457] relative">
+					<Anim_left_to_right left={-100}>
+						<h2 className="text-3xl font-bold">{MyData.header}</h2>
+					</Anim_left_to_right>
 				</div>
 			}
 
-			<div className="flex w-full sm:w-max justify-end  pt-0 sm:pt-2.5" onMouseEnter={HeadlandMouseEnter} onMouseLeave={HeadlandMouseLeave}>
+			<div className="flex w-full  sm:w-max justify-end  pt-0 sm:pt-2.5" onMouseEnter={HeadlandMouseEnter} onMouseLeave={HeadlandMouseLeave}>
 
 				{
 					(MyData?.cycle && MyData?.cycle.length > 0) &&
@@ -136,7 +139,7 @@ function MainClientMessageSlider({ data, HOST_STRIPE }: { data: TypeMainComments
 								className="flex bg_aquamarine py-1.5 rounded-lg mx-1.5 cursor-pointer"
 								animate={{ width: isActive ? 48 : 12 }}
 								transition={{
-									duration: 0.5,
+									duration: 0.7,
 									ease: "easeInOut"
 								}}
 							/>
@@ -144,9 +147,9 @@ function MainClientMessageSlider({ data, HOST_STRIPE }: { data: TypeMainComments
 					})}
 			</div>
 		</div>
-		<div className="mxw_fullhd ps96_15">
-			<div onMouseEnter={HeadlandMouseEnter} onMouseLeave={HeadlandMouseLeave} ref={RefBoxSliderX}
-				className="w-full overflow-x-auto hide-scrollbar">
+		<div className="mxw_fullhd ps96_15 pb-24">
+			<div  onMouseEnter={HeadlandMouseEnter} onMouseLeave={HeadlandMouseLeave} ref={RefBoxSliderX}
+				className="w-full overflow-x-auto hide-scrollbar ">
 				<div ref={RefMaxW} className="flex flex-nowrap gap-4">
 					{
 						(MyData?.cycle && MyData?.cycle.length > 0) &&
@@ -197,7 +200,7 @@ function MainClientMessageSlider({ data, HOST_STRIPE }: { data: TypeMainComments
 			</div>
 		</div>
 
-		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+ 
 	</>);
 }
 

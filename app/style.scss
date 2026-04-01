@@ -17,8 +17,10 @@
   }
 }
 
+$gray: #1e1e1e80;
+
 .color_blackgray {
-  color: #1e1e1e80;
+  color: $gray;
 }
 
 body {
@@ -129,26 +131,29 @@ body {
 }
 
 $CardwBr    :20px;
-$CardBrColor:#fff;
+$CardBrColor:#ff000071;
 
 .catalog_card {
   position: relative;
 
   &:hover {
-    z-index: 20;
-    outline: $CardwBr solid $CardBrColor;
+    z-index   : 20;
+    // outline: $CardwBr solid $CardBrColor;
+    height    : 100%;
 
     // border: 10px solid #000;
     //  box-shadow: 1px 1px 1px #000;
     .catalog_card_info {
-      border    : $CardwBr solid $CardBrColor;
-      border-top: 0px;
-      width     : calc(100% + $CardwBr*2); // Учти, что border-box может съесть часть ширины
-
-      position      : absolute;
-      left          : 50%;
-      /* Убираем top: 50% */
-      transform     : translateX(-50%);
+      // border    : $CardwBr solid $CardBrColor;
+      // padding-left:$CardwBr;
+      // padding-right:$CardwBr ;
+      border-top       : 0px;
+      width            : calc(100%); // Учти, что border-box может съесть часть ширины
+      // outline       : $CardwBr solid $CardBrColor;
+      position         : absolute;
+      left             : 50%;
+      /* Убираем top   : 50% */
+      transform        : translateX(-50%);
       /* Центрируем только по X */
 
       z-index       : 20;
@@ -263,10 +268,11 @@ $CardBrColor:#fff;
     @include menu;
   }
 }
+
 .burger_container {
   @media (max-width:786px) {
     @include menu;
-      padding-top: initial; 
+    padding-top: initial;
   }
 }
 
@@ -275,5 +281,49 @@ $CardBrColor:#fff;
 
   &:hover {
     transition: all ease 0.2s;
+  }
+}
+
+.rightHeaderMainSvg {
+
+  @media (min-width:640px) {
+    display        : flex;
+    justify-content: end;
+    width          : 100%;
+    height         : 100%;
+    position       : absolute;
+    bottom         : 0%;
+    left           : 50%;
+    margin-right   : -50%;
+    transform      : translate(-50%, -0%);
+  }
+
+  @media (max-width:640px) {
+    display  : flex;
+    position : relative;
+    width    : 100%;
+    max-width: 650px;
+  }
+}
+
+.iconSoc {
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+  width          : 48px;
+  height         : 48px;
+  border-radius  : 100%;
+  border         : 1px solid $gray;
+
+  svg {
+    transform    : scale(1);
+    // transition: "all"1.3s ease;
+  }
+
+  &:hover {
+    svg {
+      transform : scale(1.1);
+      transition: all ease 0.3s;
+    }
   }
 }

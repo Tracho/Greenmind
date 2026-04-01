@@ -47,7 +47,7 @@ function BSP_card({
           <div className="max-w-[300] max-h-[360] flex justify-center items-center">
             <Image className={imgClass} src={(imgUrl ? imgUrl : picture1)} alt={alternativeText || "Image"} width={width} height={height} />
           </div>
-          <div className="flex flex-col justify-between catalog_card_info bg-white rounded-2xl text-lg py-3">
+          <div className="flex flex-col justify-between catalog_card_info bg-white rounded-2xl text-lg py-3 ">
             <p className="text-base">{header}</p>
 
             <div className="flex flex-wrap justify-between mt-1.5 items-end color_blackgray">
